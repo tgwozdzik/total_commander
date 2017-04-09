@@ -1,3 +1,5 @@
+package layout;
+
 import java.awt.Button;
 import java.awt.Checkbox;
 import java.awt.CheckboxGroup;
@@ -12,11 +14,8 @@ import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowAdapter;
-import java.awt.event.WindowListener;
 
 /** This version of the solution uses the "blob"
  *    technique of writing the GUI code
@@ -43,7 +42,7 @@ public class Ftp2 extends Frame {
 
     private TextArea      messageTextArea   = new TextArea(3,30);
 
-    private FileDisplay2  localFileDisplay  = new FileDisplay2();
+    private FileDisplay2 localFileDisplay  = new FileDisplay2();
     private FileDisplay2  remoteFileDisplay = new FileDisplay2();
 
     private Panel         commandButtonPanel     = new Panel(new GridLayout());

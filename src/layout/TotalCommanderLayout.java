@@ -14,6 +14,7 @@ public class TotalCommanderLayout extends JFrame {
         setLayout(new BorderLayout());
         setBackground(Color.LIGHT_GRAY);
         setTitle("Total Commander v0.1 - Tomasz Gwoździk PUT 2017");
+        setPreferredSize(new Dimension(800, 600));
 
         JMenuBar menuBar;
         JMenu filesMenu, helpMenu;
@@ -49,6 +50,13 @@ public class TotalCommanderLayout extends JFrame {
         commandButtonPanel.add(removeButton);
         commandButtonPanel.add(exitButton);
 
+        FileDisplay2 localFileDisplay  = new FileDisplay2();
+        FileDisplay2 remoteFileDisplay = new FileDisplay2();
+
+        localFileDisplay.setFileSystemLocationLabelText("Local System");
+        remoteFileDisplay.setFileSystemLocationLabelText("Remote System");
+
+        Panel fileDisplayPanel = new Panel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.gridx      = 0;
@@ -59,7 +67,7 @@ public class TotalCommanderLayout extends JFrame {
         gbc.anchor     = GridBagConstraints.CENTER;
         gbc.weightx    = 0.5;
         gbc.weighty    = 1.0;
-        //fileDisplayPanel.add(localFileDisplay, gbc);
+        fileDisplayPanel.add(localFileDisplay, gbc);
 
         gbc.gridx      = 2;
         gbc.gridy      = 0;
@@ -69,7 +77,7 @@ public class TotalCommanderLayout extends JFrame {
         gbc.anchor     = GridBagConstraints.CENTER;
         gbc.weightx    = 0.5;
         gbc.weighty    = 1.0;
-        //fileDisplayPanel.add(remoteFileDisplay, gbc);
+        fileDisplayPanel.add(remoteFileDisplay, gbc);
 
         gbc.gridx      = 1;
         gbc.gridy      = 0;
@@ -80,7 +88,7 @@ public class TotalCommanderLayout extends JFrame {
         gbc.weightx    = 0.0;
         gbc.weighty    = 0.5;
         gbc.insets     = new Insets(0, 4, 2, 4);
-        //fileDisplayPanel.add(leftButton, gbc);
+        fileDisplayPanel.add(editButton, gbc);
 
         gbc.gridx      = 1;
         gbc.gridy      = 1;
@@ -91,13 +99,15 @@ public class TotalCommanderLayout extends JFrame {
         gbc.weightx    = 0.0;
         gbc.weighty    = 0.5;
         gbc.insets     = new Insets(2, 4, 0, 4);
-        //fileDisplayPanel.add(rightButton, gbc);
+        fileDisplayPanel.add(editButton, gbc);
 
         JPanel mainBottomSectionPanel = new JPanel(new BorderLayout());
 
         mainBottomSectionPanel.add(commandButtonPanel, BorderLayout.SOUTH);
 
+        add(fileDisplayPanel, BorderLayout.CENTER);
         add(mainBottomSectionPanel, BorderLayout.SOUTH);
+
         setJMenuBar(menuBar);
         pack();
 
