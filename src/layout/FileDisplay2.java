@@ -1,47 +1,87 @@
 package layout;
 
-import java.awt.Button;
+import javax.swing.*;
 import java.awt.Choice;
 import java.awt.Label;
-import java.awt.Panel;
-import java.awt.List;
-import java.awt.TextField;
 import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileSystem;
 
-/** This class represents a small pane which will list the files present
- *  on a given platform.  This pane was made into its own class to allow
- *  easy reuse as both the local and remote file displays
- *
- *  This version of the solution uses the "blob"
- *    technique of writing the GUI code
- *  All GUI creation is done in a single big blob
- *    of code
- */
-public class FileDisplay2 extends Panel {
-    private Choice       dirChoice               = new Choice();
-    private Panel        fileButtonsInnerPanel   = new Panel(new GridLayout(0,1));
-    private Panel        fileButtonsPanel        = new Panel(new BorderLayout());
-    private Panel        fileHeaderPanel         = new Panel(new BorderLayout());
-    private List         fileList                = new List();
-    private Label        fileSystemLocationLabel = new Label("");
+public class FileDisplay2 extends JPanel {
+    private Choice dirChoice               = new Choice();
+    private JPanel fileButtonsInnerPanel   = new JPanel(new GridLayout(0,1));
+    private JPanel fileButtonsPanel        = new JPanel(new BorderLayout());
+    private JPanel fileHeaderPanel         = new JPanel(new BorderLayout());
+    private Label  fileSystemLocationLabel = new Label("");
+
+    private String filePath;
+    private DefaultListModel<String> model;
+    private JScrollPane scrollPane;
+    private JList<String> fileList;
 
     public FileDisplay2() {
+        this.filePath = System.getProperty("user.home");
+        this.model = new DefaultListModel<>();
+        this.scrollPane = new JScrollPane();
+        this.fileList = new JList<>(model);
+        this.scrollPane.setViewportView(fileList);
+
         setLayout(new BorderLayout());
         setBackground(Color.LIGHT_GRAY);
 
-        fileHeaderPanel.add("North", fileSystemLocationLabel);
-        dirChoice.setBackground(Color.white);
-        fileHeaderPanel.add("South", dirChoice);
+        this.fileHeaderPanel.add(fileSystemLocationLabel, BorderLayout.NORTH);
+        this.dirChoice.setBackground(Color.WHITE);
+        this.fileHeaderPanel.add(dirChoice, BorderLayout.SOUTH);
 
-        fileButtonsPanel.add("North", fileButtonsInnerPanel);
+        this.fileButtonsPanel.add(fileButtonsInnerPanel, BorderLayout.NORTH);
 
-        fileList.setBackground(Color.white);
+        this.fileList.setBackground(Color.WHITE);
 
-        add("North",  fileHeaderPanel);
-        add("East",   fileButtonsPanel);
-        add("Center", fileList);
+        add(fileHeaderPanel, BorderLayout.NORTH);
+        add(fileButtonsPanel, BorderLayout.EAST);
+        add(scrollPane, BorderLayout.CENTER);
+
+        fileList.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                JList list = (JList)evt.getSource();
+
+                if (evt.getClickCount() == 2) {
+                    try {
+                        updatePath(list.locationToIndex(evt.getPoint()));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        displayFilesAndDirs();
+        setFileSystemLocationLabelText(filePath);
+    }
+
+    private void updatePath(Integer index) throws IOException {
+        String selectedFile = model.get(index);
+
+
+        filePath = new File(filePath + File.separator + selectedFile).getCanonicalPath();
+        displayFilesAndDirs();
+        setFileSystemLocationLabelText(filePath);
+    }
+
+    private void displayFilesAndDirs() {
+        File[] files = new File(filePath).listFiles();
+
+        model.clear();
+        model.addElement("..");
+
+        for (File file : files) {
+            model.addElement(file.getName());
+        }
     }
 
     public void setFileSystemLocationLabelText(String arg1) {

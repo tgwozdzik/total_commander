@@ -53,9 +53,6 @@ public class TotalCommanderLayout extends JFrame {
         FileDisplay2 localFileDisplay  = new FileDisplay2();
         FileDisplay2 remoteFileDisplay = new FileDisplay2();
 
-        localFileDisplay.setFileSystemLocationLabelText("Local System");
-        remoteFileDisplay.setFileSystemLocationLabelText("Remote System");
-
         Panel fileDisplayPanel = new Panel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -88,7 +85,7 @@ public class TotalCommanderLayout extends JFrame {
         gbc.weightx    = 0.0;
         gbc.weighty    = 0.5;
         gbc.insets     = new Insets(0, 4, 2, 4);
-        fileDisplayPanel.add(editButton, gbc);
+        fileDisplayPanel.add(new Button(">>"), gbc);
 
         gbc.gridx      = 1;
         gbc.gridy      = 1;
@@ -99,7 +96,7 @@ public class TotalCommanderLayout extends JFrame {
         gbc.weightx    = 0.0;
         gbc.weighty    = 0.5;
         gbc.insets     = new Insets(2, 4, 0, 4);
-        fileDisplayPanel.add(editButton, gbc);
+        fileDisplayPanel.add(new Button("<<"), gbc);
 
         JPanel mainBottomSectionPanel = new JPanel(new BorderLayout());
 
