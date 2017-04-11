@@ -4,11 +4,7 @@ import com.sun.deploy.util.StringUtils;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
-import java.awt.Choice;
-import java.awt.Label;
-import java.awt.Color;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -73,7 +69,7 @@ public class FilesDisplay extends JPanel {
         File selectedFile = model.get(index);
 
         if(selectedFile.isFile()) {
-            //Run notepad
+            Desktop.getDesktop().open(selectedFile);
         } else {
             filePath = selectedFile;
             displayFilesAndDirs();

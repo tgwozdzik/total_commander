@@ -31,7 +31,12 @@ public class FileListNameCellRenderer extends DefaultListCellRenderer {
             boolean expanded) {
 
         File file = (File)value;
-        label.setIcon(fileSystemView.getSystemIcon(file));
+
+        if(file.getName().contains("..")) {
+            label.setIcon(UIManager.getIcon("FileChooser.upFolderIcon"));
+        } else {
+            label.setIcon(fileSystemView.getSystemIcon(file));
+        }
 
         if(file.isDirectory()) {
             label.setText("[" + fileSystemView.getSystemDisplayName(file) + "]");
