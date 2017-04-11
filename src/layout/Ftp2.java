@@ -16,6 +16,7 @@ import java.awt.GridBagConstraints;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowAdapter;
+import java.io.IOException;
 
 /** This version of the solution uses the "blob"
  *    technique of writing the GUI code
@@ -42,8 +43,8 @@ public class Ftp2 extends Frame {
 
     private TextArea      messageTextArea   = new TextArea(3,30);
 
-    private FileDisplay2 localFileDisplay  = new FileDisplay2();
-    private FileDisplay2  remoteFileDisplay = new FileDisplay2();
+    private FilesDisplay localFileDisplay  = new FilesDisplay();
+    private FilesDisplay remoteFileDisplay = new FilesDisplay();
 
     private Panel         commandButtonPanel     = new Panel(new GridLayout());
     private Panel         fileTypePanel          = new Panel(new FlowLayout());
@@ -56,7 +57,7 @@ public class Ftp2 extends Frame {
      *    the bottom section (buttons, messages)
      *    the file-display section (two file displays & arrow buttons)
      */
-    public Ftp2() {
+    public Ftp2() throws IOException {
         setLayout(new BorderLayout());
         setBackground(Color.lightGray);
         setTitle("CloneFTP");
@@ -150,6 +151,10 @@ public class Ftp2 extends Frame {
 
     /** A simple main to let us test the GUI */
     public static void main(java.lang.String[] args) {
-        (new Ftp2()).setVisible(true);
+        try {
+            (new Ftp2()).setVisible(true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

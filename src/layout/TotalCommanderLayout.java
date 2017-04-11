@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 
 /**
  * Created by Tomasz Gwoździk on 09.04.2017.
@@ -50,8 +51,14 @@ public class TotalCommanderLayout extends JFrame {
         commandButtonPanel.add(removeButton);
         commandButtonPanel.add(exitButton);
 
-        FileDisplay2 localFileDisplay  = new FileDisplay2();
-        FileDisplay2 remoteFileDisplay = new FileDisplay2();
+        FilesDisplay localFileDisplay  = null;
+        FilesDisplay remoteFileDisplay = null;
+        try {
+            localFileDisplay = new FilesDisplay();
+            remoteFileDisplay = new FilesDisplay();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Panel fileDisplayPanel = new Panel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();

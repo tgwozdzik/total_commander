@@ -1,6 +1,9 @@
 package layout;
 
+import com.sun.deploy.util.StringUtils;
+
 import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
 import java.awt.Choice;
 import java.awt.Label;
 import java.awt.Color;
@@ -12,31 +15,32 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystem;
 
-public class FileDisplay2 extends JPanel {
-    private Choice dirChoice               = new Choice();
+public class FilesDisplay extends JPanel {
     private JPanel fileButtonsInnerPanel   = new JPanel(new GridLayout(0,1));
     private JPanel fileButtonsPanel        = new JPanel(new BorderLayout());
     private JPanel fileHeaderPanel         = new JPanel(new BorderLayout());
     private Label  fileSystemLocationLabel = new Label("");
 
-    private String filePath;
-    private DefaultListModel<String> model;
+    private File filePath;
+    private DefaultListModel<File> model;
     private JScrollPane scrollPane;
-    private JList<String> fileList;
+    private JList<File> fileList;
 
-    public FileDisplay2() {
-        this.filePath = System.getProperty("user.home");
+    public FilesDisplay() throws IOException {
+        this.filePath = new File(System.getProperty("user.home"));
         this.model = new DefaultListModel<>();
         this.scrollPane = new JScrollPane();
         this.fileList = new JList<>(model);
+
+        FileListNameCellRenderer renderer = new FileListNameCellRenderer();
+        fileList.setCellRenderer(renderer);
+
         this.scrollPane.setViewportView(fileList);
 
         setLayout(new BorderLayout());
         setBackground(Color.LIGHT_GRAY);
 
         this.fileHeaderPanel.add(fileSystemLocationLabel, BorderLayout.NORTH);
-        this.dirChoice.setBackground(Color.WHITE);
-        this.fileHeaderPanel.add(dirChoice, BorderLayout.SOUTH);
 
         this.fileButtonsPanel.add(fileButtonsInnerPanel, BorderLayout.NORTH);
 
@@ -61,26 +65,34 @@ public class FileDisplay2 extends JPanel {
         });
 
         displayFilesAndDirs();
-        setFileSystemLocationLabelText(filePath);
+        setFileSystemLocationLabelText(filePath.getCanonicalPath());
+
     }
 
     private void updatePath(Integer index) throws IOException {
-        String selectedFile = model.get(index);
+        File selectedFile = model.get(index);
 
-
-        filePath = new File(filePath + File.separator + selectedFile).getCanonicalPath();
-        displayFilesAndDirs();
-        setFileSystemLocationLabelText(filePath);
+        if(selectedFile.isFile()) {
+            //Run notepad
+        } else {
+            filePath = selectedFile;
+            displayFilesAndDirs();
+            setFileSystemLocationLabelText(filePath.getCanonicalPath());
+        }
     }
 
-    private void displayFilesAndDirs() {
-        File[] files = new File(filePath).listFiles();
+    private void displayFilesAndDirs() throws IOException {
+        File[] files = new File(filePath.getCanonicalPath()).listFiles();
 
         model.clear();
-        model.addElement("..");
+        File levelUp = new File(filePath.getCanonicalPath() + File.separator + "..");
+
+        if(!filePath.getCanonicalPath().equals(levelUp.getCanonicalPath())) {
+            model.addElement(levelUp);
+        }
 
         for (File file : files) {
-            model.addElement(file.getName());
+            model.addElement(file);
         }
     }
 
