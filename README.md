@@ -29,10 +29,10 @@ Uwagi dotyczące projektu i implementacji programu:
   Windowsami, użyj metod File.listFiles() i File.listRoots() do pobierania
   list plików i korzeni systemów plików)
 
-- [ ] prezentowane w panelach listy plików i folderów powinny być niezależnie
+- [X] prezentowane w panelach listy plików i folderów powinny być niezależnie
   sortowane wg wskazanych komumn
 
-- [ ] aplikacja powinna umożliwiać zaznaczanie plików i folderów za pomocą
+- [X] aplikacja powinna umożliwiać zaznaczanie plików i folderów za pomocą
   myszki (opcjonalnie także klawiatury)
 
 - [ ] przesyłanie informacji między komponentami aplikacji należy realizować
@@ -58,11 +58,11 @@ Uwagi dotyczące projektu i implementacji programu:
 
 Wymagania opcjonalne:
 
-- [ ] dodanie opcji pozwalającej na wykonywanie operacji na plikach w tle
-  ("move to background")
+~~- [ ] dodanie opcji pozwalającej na wykonywanie operacji na plikach w tle
+  ("move to background")~~
 
-- [ ] implementacja asynchronicznego mechanizmu powiadamiającego o zmianach
-  w systemie plików i odświeżającego listy wyświetlanych plików
+~~- [ ] implementacja asynchronicznego mechanizmu powiadamiającego o zmianach
+  w systemie plików i odświeżającego listy wyświetlanych plików~~
 
-- [ ] implementacja podglądu zawartości plików (np. na bazie komponentu
-  z programu JEdit), itp.
+~~- [ ] implementacja podglądu zawartości plików (np. na bazie komponentu
+  z programu JEdit), itp.~~
