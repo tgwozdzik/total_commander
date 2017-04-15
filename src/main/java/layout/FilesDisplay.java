@@ -1,7 +1,13 @@
 package layout;
 
+import Comparators.FileCreationDateComparator;
+import Comparators.FileNameComparator;
+import Comparators.FileSizeComparator;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -9,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
 
 class FilesDisplay extends JPanel {
     private JPanel fileButtonsInnerPanel   = new JPanel(new GridLayout(0,1));
@@ -16,9 +23,11 @@ class FilesDisplay extends JPanel {
     private JPanel fileHeaderPanel         = new JPanel(new BorderLayout());
     private Label  fileSystemLocationLabel = new Label("");
 
+    private JTable filesAndDirectoriesTable;
     private String filePath;
 
     private DefaultTableModel tableModel;
+    private TableRowSorter<TableModel> tableRowSorter;
 
     FilesDisplay() throws IOException {
         this.filePath = new File(System.getProperty("user.home")).getCanonicalPath();
@@ -28,10 +37,17 @@ class FilesDisplay extends JPanel {
         Object[][] tableRowData = new Object[0][0];
         Object[] tableColumnNames = new Object[]{"Nazwa", "Rozmiar", "Data utworzenia"};
         this.tableModel = new MyTableModel(tableRowData, tableColumnNames);
-        JTable filesAndDirectoriesTable = new JTable(tableModel);
+        filesAndDirectoriesTable = new JTable(tableModel);
         filesAndDirectoriesTable.getColumnModel().getColumn(0).setCellRenderer(new CustomTableCellRendered());
         filesAndDirectoriesTable.getColumnModel().getColumn(1).setCellRenderer(new CustomTableCellRendered());
         filesAndDirectoriesTable.getColumnModel().getColumn(2).setCellRenderer(new CustomTableCellRendered());
+
+        this.tableRowSorter = new TableRowSorter<>(filesAndDirectoriesTable.getModel());
+        tableRowSorter.setComparator(0, new FileNameComparator(0, filesAndDirectoriesTable));
+        tableRowSorter.setComparator(1, new FileSizeComparator(1, filesAndDirectoriesTable));
+        tableRowSorter.setComparator(2, new FileCreationDateComparator(2, filesAndDirectoriesTable));
+        filesAndDirectoriesTable.setRowSorter(tableRowSorter);
+
         scrollPane.setViewportView(filesAndDirectoriesTable);
 
         setLayout(new BorderLayout());
@@ -69,8 +85,8 @@ class FilesDisplay extends JPanel {
     }
 
     private void updatePath(Integer rowIndex) throws IOException {
-        String newDestination = (String) tableModel.getValueAt(rowIndex, 0);
-        File selectedFile = new File(newDestination);
+        Object[] newDestination = (Object[]) filesAndDirectoriesTable.getValueAt(rowIndex, 0);
+        File selectedFile = new File((String) newDestination[1]);
 
         if(selectedFile.isFile()) {
             Desktop.getDesktop().open(selectedFile);
@@ -88,23 +104,46 @@ class FilesDisplay extends JPanel {
         tableModel.setRowCount(0);
         File levelUp = new File(filePath + File.separator + "..");
 
+        ArrayList<Object[]> fileList = new ArrayList<>();
+        ArrayList<Object[]> directoryList = new ArrayList<>();
+
         if(!filePath.equals(levelUp.getCanonicalPath())) {
-            tableModel.addRow(new Object[]{filePath + File.separator + "..", "-", "-"});
+            directoryList.add(new Object[]{
+                    new Object[]{true, filePath + File.separator + ".."},
+                    new Object[]{true, (long) -1},
+                    new Object[]{true, (long) -1}
+            });
         }
 
         if (files != null) {
             for (File file : files) {
                 BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
-                Object[] newRow;
 
                 if(file.isDirectory()) {
-                    newRow = new Object[]{file.getCanonicalPath(), "-", fileAttributes.creationTime().toMillis()};
+                    directoryList.add(new Object[]{
+                            new Object[]{true, file.getCanonicalPath()},
+                            new Object[]{true, (long) -1},
+                            new Object[]{true, fileAttributes.creationTime().toMillis()}
+                    });
+                    //directoryList.add(new Object[]{file.getCanonicalPath(), (long) -1, "d" + fileAttributes.creationTime().toMillis()});
                 } else {
-                    newRow = new Object[]{file.getCanonicalPath(), file.length(), fileAttributes.creationTime().toMillis()};
+                    fileList.add(new Object[]{
+                            new Object[]{false, file.getCanonicalPath()},
+                            new Object[]{false, file.length()},
+                            new Object[]{false, fileAttributes.creationTime().toMillis()}
+                    });
+                    //fileList.add(new Object[]{file.getCanonicalPath(), file.length(), "" + fileAttributes.creationTime().toMillis()});
                 }
-
-                tableModel.addRow(newRow);
             }
+        }
+
+
+        for(Object[] directoryObj : directoryList ) {
+            tableModel.addRow(directoryObj);
+        }
+
+        for(Object[] fileObj : fileList ) {
+            tableModel.addRow(fileObj);
         }
     }
 
