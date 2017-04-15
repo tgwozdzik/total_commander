@@ -76,8 +76,8 @@ public class Ftp2 extends Frame {
 
         messageTextArea.setBackground(Color.white);
 
-        localFileDisplay.setFileSystemLocationLabelText("Local System");
-        remoteFileDisplay.setFileSystemLocationLabelText("Remote System");
+        //localFileDisplay.setFileSystemLocationLabelText("Local System");
+        //remoteFileDisplay.setFileSystemLocationLabelText("Remote System");
 
         GridBagConstraints gbc = new GridBagConstraints();
 

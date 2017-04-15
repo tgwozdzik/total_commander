@@ -1,33 +1,38 @@
 package layout;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.attribute.BasicFileAttributes;
 
-public class FilesDisplay extends JPanel {
+class FilesDisplay extends JPanel {
     private JPanel fileButtonsInnerPanel   = new JPanel(new GridLayout(0,1));
     private JPanel fileButtonsPanel        = new JPanel(new BorderLayout());
     private JPanel fileHeaderPanel         = new JPanel(new BorderLayout());
     private Label  fileSystemLocationLabel = new Label("");
 
-    private File filePath;
-    private DefaultListModel<File> model;
-    private JScrollPane scrollPane;
-    private JList<File> fileList;
+    private String filePath;
 
-    public FilesDisplay() throws IOException {
-        this.filePath = new File(System.getProperty("user.home"));
-        this.model = new DefaultListModel<>();
-        this.scrollPane = new JScrollPane();
-        this.fileList = new JList<>(model);
+    private DefaultTableModel tableModel;
 
-        FileListNameCellRenderer renderer = new FileListNameCellRenderer();
-        fileList.setCellRenderer(renderer);
+    FilesDisplay() throws IOException {
+        this.filePath = new File(System.getProperty("user.home")).getCanonicalPath();
+        JScrollPane scrollPane = new JScrollPane();
 
-        this.scrollPane.setViewportView(fileList);
+        /* ---------- TABLE ---------- */
+        Object[][] tableRowData = new Object[0][0];
+        Object[] tableColumnNames = new Object[]{"Nazwa", "Rozmiar", "Data utworzenia"};
+        this.tableModel = new MyTableModel(tableRowData, tableColumnNames);
+        JTable filesAndDirectoriesTable = new JTable(tableModel);
+        filesAndDirectoriesTable.getColumnModel().getColumn(0).setCellRenderer(new CustomTableCellRendered());
+        filesAndDirectoriesTable.getColumnModel().getColumn(1).setCellRenderer(new CustomTableCellRendered());
+        filesAndDirectoriesTable.getColumnModel().getColumn(2).setCellRenderer(new CustomTableCellRendered());
+        scrollPane.setViewportView(filesAndDirectoriesTable);
 
         setLayout(new BorderLayout());
         setBackground(Color.LIGHT_GRAY);
@@ -36,59 +41,74 @@ public class FilesDisplay extends JPanel {
 
         this.fileButtonsPanel.add(fileButtonsInnerPanel, BorderLayout.NORTH);
 
-        this.fileList.setBackground(Color.WHITE);
-
         add(fileHeaderPanel, BorderLayout.NORTH);
         add(fileButtonsPanel, BorderLayout.EAST);
         add(scrollPane, BorderLayout.CENTER);
 
-        fileList.addMouseListener(new MouseAdapter() {
+        filesAndDirectoriesTable.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                JList list = (JList)evt.getSource();
+                JTable table = (JTable)evt.getSource();
 
                 if (evt.getClickCount() == 2) {
-                    try {
-                        updatePath(list.locationToIndex(evt.getPoint()));
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    int row = table.rowAtPoint(evt.getPoint());
+
+                    if (row >= 0) {
+                        try {
+                            updatePath(row);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
         });
 
         displayFilesAndDirs();
-        setFileSystemLocationLabelText(filePath.getCanonicalPath());
+        setFileSystemLocationLabelText(filePath);
 
     }
 
-    private void updatePath(Integer index) throws IOException {
-        File selectedFile = model.get(index);
+    private void updatePath(Integer rowIndex) throws IOException {
+        String newDestination = (String) tableModel.getValueAt(rowIndex, 0);
+        File selectedFile = new File(newDestination);
 
         if(selectedFile.isFile()) {
             Desktop.getDesktop().open(selectedFile);
         } else {
-            filePath = selectedFile;
+            filePath = selectedFile.getCanonicalPath();
+
             displayFilesAndDirs();
-            setFileSystemLocationLabelText(filePath.getCanonicalPath());
+            setFileSystemLocationLabelText(filePath);
         }
     }
 
     private void displayFilesAndDirs() throws IOException {
-        File[] files = new File(filePath.getCanonicalPath()).listFiles();
+        File[] files = new File(filePath).listFiles();
 
-        model.clear();
-        File levelUp = new File(filePath.getCanonicalPath() + File.separator + "..");
+        tableModel.setRowCount(0);
+        File levelUp = new File(filePath + File.separator + "..");
 
-        if(!filePath.getCanonicalPath().equals(levelUp.getCanonicalPath())) {
-            model.addElement(levelUp);
+        if(!filePath.equals(levelUp.getCanonicalPath())) {
+            tableModel.addRow(new Object[]{filePath + File.separator + "..", "-", "-"});
         }
 
-        for (File file : files) {
-            model.addElement(file);
+        if (files != null) {
+            for (File file : files) {
+                BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
+                Object[] newRow;
+
+                if(file.isDirectory()) {
+                    newRow = new Object[]{file.getCanonicalPath(), "-", fileAttributes.creationTime().toMillis()};
+                } else {
+                    newRow = new Object[]{file.getCanonicalPath(), file.length(), fileAttributes.creationTime().toMillis()};
+                }
+
+                tableModel.addRow(newRow);
+            }
         }
     }
 
-    public void setFileSystemLocationLabelText(String arg1) {
+    private void setFileSystemLocationLabelText(String arg1) {
         fileSystemLocationLabel.setText(arg1);
     }
 }
