@@ -20,7 +20,7 @@ Uwagi dotyczące projektu i implementacji programu:
   użytkownika był niezależny od kodu realizujacego wybrane operacje na
   plikach i folderach
 
-- [ ] komponent przedstawiający listę plików i folderów powinien wyświetlać
+- [X] komponent przedstawiający listę plików i folderów powinien wyświetlać
   w poszczególnych kolumnach: nazwę, rozmiar (tylko dla plików) i datę
   utworzenia (dodatkowe kolumny są opcjonalne)
 
