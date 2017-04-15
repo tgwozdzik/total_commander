@@ -1,15 +1,11 @@
 package layout;
 
-import com.sun.deploy.util.StringUtils;
-
 import javax.swing.*;
-import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.FileSystem;
 
 public class FilesDisplay extends JPanel {
     private JPanel fileButtonsInnerPanel   = new JPanel(new GridLayout(0,1));
