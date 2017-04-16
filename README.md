@@ -24,7 +24,7 @@ Uwagi dotyczące projektu i implementacji programu:
   w poszczególnych kolumnach: nazwę, rozmiar (tylko dla plików) i datę
   utworzenia (dodatkowe kolumny są opcjonalne)
 
-- [ ] komponent pokazujący listy plików i folderów powinien działać prawidłowo
+- [X] komponent pokazujący listy plików i folderów powinien działać prawidłowo
   zarówno pod systemem Windows jak i Linux (m.in. usuń napęd A: pod
   Windowsami, użyj metod File.listFiles() i File.listRoots() do pobierania
   list plików i korzeni systemów plików)
