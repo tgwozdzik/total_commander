@@ -1,4 +1,4 @@
-package Comparators;
+package tg.logic.comparators;
 
 import javax.swing.*;
 import java.util.Comparator;

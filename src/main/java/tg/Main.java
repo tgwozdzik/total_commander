@@ -1,4 +1,6 @@
-import layout.TotalCommanderLayout;
+package tg;
+
+import tg.ui.TotalCommanderLayout;
 
 import javax.swing.*;
 

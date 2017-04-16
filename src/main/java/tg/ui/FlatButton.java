@@ -1,4 +1,4 @@
-package layout;
+package tg.ui;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,13 +14,13 @@ public class FlatButton extends JButton {
 
     public final static ElementBorderPosition RIGHT = ElementBorderPosition.RIGHT;
 
-    FlatButton(String label) {
+    public FlatButton(String label) {
         setBorderPainted(false);
         setText(label);
         setItFlat();
     }
 
-    FlatButton(String label, ElementBorderPosition position) {
+    public FlatButton(String label, ElementBorderPosition position) {
         switch (position) {
             case RIGHT:
                 setBorder(BorderFactory.createMatteBorder(0,0,0,1, Color.BLACK));

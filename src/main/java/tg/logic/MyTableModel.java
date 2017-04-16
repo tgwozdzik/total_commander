@@ -1,4 +1,4 @@
-package layout;
+package tg.logic;
 
 import javax.swing.table.DefaultTableModel;
 
