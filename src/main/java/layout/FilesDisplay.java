@@ -10,8 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -34,7 +33,6 @@ class FilesDisplay extends JPanel {
     private TableRowSorter<TableModel> tableRowSorter;
 
     FilesDisplay() throws IOException {
-        this.filePath = new File(System.getProperty("user.home")).getCanonicalPath();
         JScrollPane scrollPane = new JScrollPane();
 
         /* ---------- TABLE ---------- */
@@ -87,8 +85,25 @@ class FilesDisplay extends JPanel {
             }
         });
 
+        drivesList.addItemListener(e -> {
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+                Object item = e.getItem();
+
+                filePath = (String) item;
+                setFreeSpaceLabel();
+                try {
+                    displayFilesAndDirs();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                setFileSystemLocationLabelText((String) item);
+            }
+        });
+
+        //this.filePath = new File(System.getProperty("user.home")).getCanonicalPath();
+
         updateDrives();
-        setFreeSpaceLabel();
+        //setFreeSpaceLabel();
         displayFilesAndDirs();
         setFileSystemLocationLabelText(filePath);
     }
@@ -119,7 +134,11 @@ class FilesDisplay extends JPanel {
         File selectedFile = new File((String) newDestination[1]);
 
         if(selectedFile.isFile()) {
-            Desktop.getDesktop().open(selectedFile);
+            try {
+                Desktop.getDesktop().open(selectedFile);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else {
             filePath = selectedFile.getCanonicalPath();
 
@@ -137,7 +156,7 @@ class FilesDisplay extends JPanel {
         ArrayList<Object[]> fileList = new ArrayList<>();
         ArrayList<Object[]> directoryList = new ArrayList<>();
 
-        if(!filePath.equals(levelUp.getCanonicalPath())) {
+        if(!filePath.equals(drivesList.getSelectedItem())) {
             directoryList.add(new Object[]{
                     new Object[]{true, filePath + File.separator + ".."},
                     new Object[]{true, (long) -1},
@@ -147,22 +166,26 @@ class FilesDisplay extends JPanel {
 
         if (files != null) {
             for (File file : files) {
-                BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
+                try {
+                    BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
 
-                if(file.isDirectory()) {
-                    directoryList.add(new Object[]{
-                            new Object[]{true, file.getCanonicalPath()},
-                            new Object[]{true, (long) -1},
-                            new Object[]{true, fileAttributes.creationTime().toMillis()}
-                    });
-                    //directoryList.add(new Object[]{file.getCanonicalPath(), (long) -1, "d" + fileAttributes.creationTime().toMillis()});
-                } else {
-                    fileList.add(new Object[]{
-                            new Object[]{false, file.getCanonicalPath()},
-                            new Object[]{false, file.length()},
-                            new Object[]{false, fileAttributes.creationTime().toMillis()}
-                    });
-                    //fileList.add(new Object[]{file.getCanonicalPath(), file.length(), "" + fileAttributes.creationTime().toMillis()});
+                    if(file.isDirectory()) {
+                        directoryList.add(new Object[]{
+                                new Object[]{true, file.getCanonicalPath()},
+                                new Object[]{true, (long) -1},
+                                new Object[]{true, fileAttributes.creationTime().toMillis()}
+                        });
+                        //directoryList.add(new Object[]{file.getCanonicalPath(), (long) -1, "d" + fileAttributes.creationTime().toMillis()});
+                    } else {
+                        fileList.add(new Object[]{
+                                new Object[]{false, file.getCanonicalPath()},
+                                new Object[]{false, file.length()},
+                                new Object[]{false, fileAttributes.creationTime().toMillis()}
+                        });
+                        //fileList.add(new Object[]{file.getCanonicalPath(), file.length(), "" + fileAttributes.creationTime().toMillis()});
+                    }
+                } catch(Exception e) {
+                    e.printStackTrace();
                 }
             }
         }

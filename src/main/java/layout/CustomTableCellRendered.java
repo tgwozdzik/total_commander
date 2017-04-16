@@ -1,13 +1,13 @@
 package layout;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.HashMap;
 
 /**
  * Created by Tomasz Gwoździk on 11.04.2017.
@@ -85,6 +85,8 @@ public class CustomTableCellRendered extends DefaultTableCellRenderer {
         } else {
             component.setBackground(null);
         }
+
+        ((JLabel) component).setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, new Color(0,0,0)));
 
         return component;
     }
