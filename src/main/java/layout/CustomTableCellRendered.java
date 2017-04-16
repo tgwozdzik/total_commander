@@ -80,6 +80,12 @@ public class CustomTableCellRendered extends DefaultTableCellRenderer {
             }
         }
 
+        if(isSelected) {
+            component.setBackground(new Color(135,206,250));
+        } else {
+            component.setBackground(null);
+        }
+
         return component;
     }
 }

@@ -34,15 +34,17 @@ public class FlatButton extends JButton {
 
     private void setItFlat() {
         setFocusPainted(false);
-        setBackground(Color.LIGHT_GRAY);
+        setOpaque(false);
 
         addMouseListener(new MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 setBackground(new Color(135,206,250));
+                setOpaque(true);
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                setBackground(Color.LIGHT_GRAY);
+                setBackground(new Color(0,0,0));
+                setOpaque(false);
             }
         });
     }

@@ -3,6 +3,7 @@ package layout;
 import Comparators.FileCreationDateComparator;
 import Comparators.FileNameComparator;
 import Comparators.FileSizeComparator;
+import org.apache.commons.io.FileUtils;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -21,7 +22,10 @@ class FilesDisplay extends JPanel {
     private JPanel fileButtonsInnerPanel   = new JPanel(new GridLayout(0,1));
     private JPanel fileButtonsPanel        = new JPanel(new BorderLayout());
     private JPanel fileHeaderPanel         = new JPanel(new BorderLayout());
-    private Label  fileSystemLocationLabel = new Label("");
+    private Label fileSystemLocationLabel = new Label("");
+    private Label freeSpaceLabel = new Label("");
+
+    private JComboBox drivesList;
 
     private JTable filesAndDirectoriesTable;
     private String filePath;
@@ -48,12 +52,16 @@ class FilesDisplay extends JPanel {
         tableRowSorter.setComparator(2, new FileCreationDateComparator(2, filesAndDirectoriesTable));
         filesAndDirectoriesTable.setRowSorter(tableRowSorter);
 
+        this.drivesList = new JComboBox();
+
         scrollPane.setViewportView(filesAndDirectoriesTable);
 
         setLayout(new BorderLayout());
         setBackground(Color.LIGHT_GRAY);
 
-        this.fileHeaderPanel.add(fileSystemLocationLabel, BorderLayout.NORTH);
+        this.fileHeaderPanel.add(fileSystemLocationLabel, BorderLayout.SOUTH);
+        this.fileHeaderPanel.add(drivesList, BorderLayout.WEST);
+        this.fileHeaderPanel.add(freeSpaceLabel, BorderLayout.CENTER);
 
         this.fileButtonsPanel.add(fileButtonsInnerPanel, BorderLayout.NORTH);
 
@@ -79,9 +87,31 @@ class FilesDisplay extends JPanel {
             }
         });
 
+        updateDrives();
+        setFreeSpaceLabel();
         displayFilesAndDirs();
         setFileSystemLocationLabelText(filePath);
+    }
 
+    private void setFreeSpaceLabel() {
+        File file = new File((String) drivesList.getSelectedItem());
+
+        Long freeSpace = file.getFreeSpace() / 1000;
+        Long totalSpace = file.getTotalSpace() / 1000;
+
+        freeSpaceLabel.setText(freeSpace.toString() + " k z " + totalSpace.toString() + " k wolne");
+    }
+
+    private void updateDrives() {
+        drivesList.removeAllItems();
+
+        try {
+            for(File drive : File.listRoots()) {
+                drivesList.addItem(drive.getCanonicalPath());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void updatePath(Integer rowIndex) throws IOException {
