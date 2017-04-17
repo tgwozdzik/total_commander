@@ -34,6 +34,7 @@ public class FlatButton extends JButton {
 
     private void setItFlat() {
         setFocusPainted(false);
+        setBackground(new Color(0,0,0));
         setOpaque(false);
 
         addMouseListener(new MouseAdapter() {

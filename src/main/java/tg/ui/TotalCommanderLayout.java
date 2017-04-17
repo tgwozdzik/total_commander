@@ -121,13 +121,15 @@ public class TotalCommanderLayout extends JFrame {
         rightFileList.getFileTable().addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                rightFileList.setFocus(false);
-                leftFileList.setFocus(true);
+                rightFileList.setFocus(true);
+                leftFileList.setFocus(false);
             }
 
             @Override
             public void focusLost(FocusEvent e) {}
         });
+
+
     }
 
     private void setUpFooterButtons() {
@@ -145,6 +147,29 @@ public class TotalCommanderLayout extends JFrame {
         commandButtonPanel.add(removeButton);
         commandButtonPanel.add(exitButton);
 
+        moveButton.addActionListener(e -> {
+            ArrayList<String> leftSelected = leftFileList.getSelected();
+            ArrayList<String> rightSelected = rightFileList.getSelected();
+
+            FileCopyOperationDialog fileCopyOperationDialog;
+
+            if(leftFileList.getFocusStatus()) {
+                fileCopyOperationDialog = new FileCopyOperationDialog(leftSelected, rightSelected.get(0), 0);
+
+            } else {
+                fileCopyOperationDialog = new FileCopyOperationDialog(rightSelected, leftSelected.get(0), 0);
+            }
+
+            fileCopyOperationDialog.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    leftFileList.refresh();
+                    rightFileList.refresh();
+                }
+            });
+            fileCopyOperationDialog.setVisible(true);
+        });
+
         copyButton.addActionListener(e -> {
             ArrayList<String> leftSelected = leftFileList.getSelected();
             ArrayList<String> rightSelected = rightFileList.getSelected();
@@ -152,12 +177,42 @@ public class TotalCommanderLayout extends JFrame {
             FileCopyOperationDialog fileCopyOperationDialog;
 
             if(leftFileList.getFocusStatus()) {
-                fileCopyOperationDialog = new FileCopyOperationDialog(leftSelected, rightSelected.get(0));
+                fileCopyOperationDialog = new FileCopyOperationDialog(leftSelected, rightSelected.get(0), 1);
 
             } else {
-                fileCopyOperationDialog = new FileCopyOperationDialog(rightSelected, leftSelected.get(0));
+                fileCopyOperationDialog = new FileCopyOperationDialog(rightSelected, leftSelected.get(0), 1);
             }
 
+            fileCopyOperationDialog.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    leftFileList.refresh();
+                    rightFileList.refresh();
+                }
+            });
+            fileCopyOperationDialog.setVisible(true);
+        });
+
+        removeButton.addActionListener(e -> {
+            ArrayList<String> leftSelected = leftFileList.getSelected();
+            ArrayList<String> rightSelected = rightFileList.getSelected();
+
+            FileCopyOperationDialog fileCopyOperationDialog;
+
+            if(leftFileList.getFocusStatus()) {
+                fileCopyOperationDialog = new FileCopyOperationDialog(leftSelected, null, 2);
+
+            } else {
+                fileCopyOperationDialog = new FileCopyOperationDialog(rightSelected, null, 2);
+            }
+
+            fileCopyOperationDialog.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    leftFileList.refresh();
+                    rightFileList.refresh();
+                }
+            });
             fileCopyOperationDialog.setVisible(true);
         });
 

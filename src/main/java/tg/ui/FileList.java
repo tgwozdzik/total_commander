@@ -7,6 +7,7 @@ import tg.logic.comparators.FileNameComparator;
 import tg.logic.comparators.FileSizeComparator;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
@@ -39,8 +40,11 @@ public class FileList extends JPanel {
         scrollPane = new JScrollPane();
 
         fileTable = new JTable(fileListLogic.setDefaultTableModel(new Object[]{"Nazwa", "Rozmiar", "Data utworzenia"}));
+
+        fileTable.setShowGrid(false);
         scrollPane.setViewportView(fileTable);
 
+        scrollPane.getViewport().setBackground(Color.WHITE);
         add(scrollPane, BorderLayout.CENTER);
     }
 
@@ -102,9 +106,9 @@ public class FileList extends JPanel {
         setUpColumnsSorter();
         setUpHeader();
         setUpListeners();
+        setFileSystemLocationLabel();
         updateDrives();
         displayFilesAndDirs();
-        setFileSystemLocationLabel();
     }
 
     public ArrayList<String> getSelected() {
@@ -131,9 +135,6 @@ public class FileList extends JPanel {
         for(String path : fileListLogic.getDrivesList()) {
             drives.addItem(path);
         }
-
-        drives.addItem("/Users/tgwozdzik/Desktop");
-        drives.addItem("/Users/tgwozdzik/Documents/Prywatne");
     }
 
     private void updatePath(Integer rowIndex) {
@@ -167,5 +168,9 @@ public class FileList extends JPanel {
 
     public JTable getFileTable() {
         return fileTable;
+    }
+
+    public void refresh() {
+        displayFilesAndDirs();
     }
 }

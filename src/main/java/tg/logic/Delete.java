@@ -8,23 +8,20 @@ import java.util.List;
 /**
  * Created by tgwozdzik on 16.04.2017.
  */
-public class Copy extends SwingWorker<Void, List<Object>> {
+public class Delete extends SwingWorker<Void, List<Object>> {
     private ArrayList<File> source;
-    private File target;
     private long totalBytes = 0L;
-    private long copiedBytes = 0L;
+    private long removedBytes = 0L;
     private JProgressBar progressAll;
     private JLabel currentlyCopiedFile;
 
     private Boolean isRunning;
 
-    public Copy(ArrayList<String> source, String target, JProgressBar progressAll, JLabel txtFile) {
+    public Delete(ArrayList<String> source, JProgressBar progressAll, JLabel txtFile) {
         this.source = new ArrayList<>();
         for(String sourceObj : source) {
             this.source.add(new File(sourceObj));
         }
-
-        this.target = new File(target);
 
         this.progressAll = progressAll;
 
@@ -46,7 +43,7 @@ public class Copy extends SwingWorker<Void, List<Object>> {
         publish(createPublishArray(null,"Start task"));
 
         for(File sourceObj : source) {
-            copyFiles(sourceObj, new File(target.getCanonicalPath() + File.separator + sourceObj.getName()));
+            removeFiles(sourceObj);
         }
 
         isRunning = false;
@@ -97,38 +94,34 @@ public class Copy extends SwingWorker<Void, List<Object>> {
         return array;
     }
 
-    private void copyFiles(File sourceFile, File targetFile) throws IOException {
+    private void removeFiles(File sourceFile) throws IOException {
         if(sourceFile.isDirectory())
         {
-            if(!targetFile.exists()) targetFile.mkdirs();
-
             String[] filePaths = sourceFile.list();
 
             for(String filePath : filePaths)
             {
                 File srcFile = new File(sourceFile, filePath);
-                File destFile = new File(targetFile, filePath);
 
-                copyFiles(srcFile, destFile);
+                removeFiles(srcFile);
+            }
+
+            if(!sourceFile.delete()) {
+                publish(createPublishArray(null, "Nie usunięto folderu!"));
             }
         }
         else
         {
             publish(createPublishArray(null, sourceFile.getName()));
 
-            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(sourceFile));
-            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(targetFile));
+            Long tempFileSize = sourceFile.length();
 
-            int theByte;
-
-            while((theByte = bis.read()) != -1)
-            {
-                bos.write(theByte);
-                publish(createPublishArray((int) (copiedBytes++ * 100 / totalBytes), null));
+            if(!sourceFile.delete()) {
+                publish(createPublishArray(null, "Nie usunięto pliku!"));
+            } else {
+                removedBytes += tempFileSize;
+                publish(createPublishArray((int) (removedBytes * 100 / totalBytes), null));
             }
-
-            bis.close();
-            bos.close();
 
             publish(createPublishArray(null, "..."));
         }

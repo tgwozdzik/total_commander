@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by tgwozdzik on 16.04.2017.
  */
-public class Copy extends SwingWorker<Void, List<Object>> {
+public class Move extends SwingWorker<Void, List<Object>> {
     private ArrayList<File> source;
     private File target;
     private long totalBytes = 0L;
@@ -18,7 +18,7 @@ public class Copy extends SwingWorker<Void, List<Object>> {
 
     private Boolean isRunning;
 
-    public Copy(ArrayList<String> source, String target, JProgressBar progressAll, JLabel txtFile) {
+    public Move(ArrayList<String> source, String target, JProgressBar progressAll, JLabel txtFile) {
         this.source = new ArrayList<>();
         for(String sourceObj : source) {
             this.source.add(new File(sourceObj));
@@ -46,7 +46,7 @@ public class Copy extends SwingWorker<Void, List<Object>> {
         publish(createPublishArray(null,"Start task"));
 
         for(File sourceObj : source) {
-            copyFiles(sourceObj, new File(target.getCanonicalPath() + File.separator + sourceObj.getName()));
+            moveFiles(sourceObj, new File(target.getCanonicalPath() + File.separator + sourceObj.getName()));
         }
 
         isRunning = false;
@@ -97,7 +97,7 @@ public class Copy extends SwingWorker<Void, List<Object>> {
         return array;
     }
 
-    private void copyFiles(File sourceFile, File targetFile) throws IOException {
+    private void moveFiles(File sourceFile, File targetFile) throws IOException {
         if(sourceFile.isDirectory())
         {
             if(!targetFile.exists()) targetFile.mkdirs();
@@ -109,7 +109,11 @@ public class Copy extends SwingWorker<Void, List<Object>> {
                 File srcFile = new File(sourceFile, filePath);
                 File destFile = new File(targetFile, filePath);
 
-                copyFiles(srcFile, destFile);
+                moveFiles(srcFile, destFile);
+            }
+
+            if(!sourceFile.delete()) {
+                publish(createPublishArray(null, "Nie usunięto folderu!"));
             }
         }
         else
@@ -129,6 +133,10 @@ public class Copy extends SwingWorker<Void, List<Object>> {
 
             bis.close();
             bos.close();
+
+            if(!sourceFile.delete()) {
+                publish(createPublishArray(null, "Nie usunięto pliku!"));
+            }
 
             publish(createPublishArray(null, "..."));
         }

@@ -1,6 +1,8 @@
 package tg.ui;
 
 import tg.logic.Copy;
+import tg.logic.Delete;
+import tg.logic.Move;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,6 +15,9 @@ import java.util.ArrayList;
  */
 public class FileCopyOperationDialog extends JFrame {
     private Copy copy;
+    private Move move;
+    private Delete delete;
+    private Integer isCopying;
 
     private JProgressBar progressAll;
     private JButton btnCopy;
@@ -27,7 +32,13 @@ public class FileCopyOperationDialog extends JFrame {
             @Override
             public void windowClosing(WindowEvent e)
             {
-                if(copy.getIsRunning() != null) copy.cancel(true);
+                if(isCopying == 0) {
+                    if(copy.getIsRunning() != null) copy.cancel(true);
+                } else if(isCopying == 1) {
+                    if(move.getIsRunning() != null) move.cancel(true);
+                } else if(isCopying == 2) {
+                    if(delete.getIsRunning() != null) delete.cancel(true);
+                }
                 dispose();
             }
         });
@@ -105,18 +116,43 @@ public class FileCopyOperationDialog extends JFrame {
         setLocationRelativeTo(null);
     }
 
-    public FileCopyOperationDialog(ArrayList<String> source, String target) {
+    public FileCopyOperationDialog(ArrayList<String> source, String target, Integer isCopying) {
         setUpLayout(source, target);
+        this.isCopying = isCopying;
 
-        SwingUtilities.invokeLater(() -> {
-            copy = new Copy(source, target, progressAll, txtFile);
-            copy.execute();
+        if(isCopying == 0) {
+            SwingUtilities.invokeLater(() -> {
+                copy = new Copy(source, target, progressAll, txtFile);
+                copy.execute();
 
-            copy.addPropertyChangeListener(evt -> {
-                if("state".equals(evt.getPropertyName()) && SwingWorker.StateValue.DONE == evt.getNewValue()) {
-                    dispose();
-                }
+                copy.addPropertyChangeListener(evt -> {
+                    if("state".equals(evt.getPropertyName()) && SwingWorker.StateValue.DONE == evt.getNewValue()) {
+                        dispose();
+                    }
+                });
             });
-        });
+        } else if(isCopying == 1) {
+            SwingUtilities.invokeLater(() -> {
+                move = new Move(source, target, progressAll, txtFile);
+                move.execute();
+
+                move.addPropertyChangeListener(evt -> {
+                    if("state".equals(evt.getPropertyName()) && SwingWorker.StateValue.DONE == evt.getNewValue()) {
+                        dispose();
+                    }
+                });
+            });
+        } else if(isCopying == 2) {
+            SwingUtilities.invokeLater(() -> {
+                delete = new Delete(source, progressAll, txtFile);
+                delete.execute();
+
+                delete.addPropertyChangeListener(evt -> {
+                    if("state".equals(evt.getPropertyName()) && SwingWorker.StateValue.DONE == evt.getNewValue()) {
+                        dispose();
+                    }
+                });
+            });
+        }
     }
 }
