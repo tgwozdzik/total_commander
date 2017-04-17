@@ -1,17 +1,25 @@
 package tg.ui;
 
-import tg.ui.fileList.FileList;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by Tomasz Gwoździk on 09.04.2017.
  */
 
 public class TotalCommanderLayout extends JFrame {
+    private static final long serialVersionUID = 1L;
+    private FileList leftFileList;
+    private FileList rightFileList;
+
     private void setUpLayout() {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(800, 600));
@@ -22,7 +30,8 @@ public class TotalCommanderLayout extends JFrame {
     }
 
     private void setUpLists() {
-        Panel fileDisplayPanel = new Panel(new GridBagLayout());
+        JPanel fileDisplayPanel = new JPanel(new GridBagLayout());
+        fileDisplayPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
         setUpLeftFileList(fileDisplayPanel);
         setUpMiddleActionButtons(fileDisplayPanel);
@@ -35,9 +44,9 @@ public class TotalCommanderLayout extends JFrame {
         setJMenuBar(new MenuBar().getMenuBar());
     }
 
-    private void setUpLeftFileList(Panel fileDisplayPanel) {
+    private void setUpLeftFileList(JPanel fileDisplayPanel) {
         GridBagConstraints gbc = new GridBagConstraints();
-        FileList fileList = new FileList();
+        leftFileList = new FileList();
 
         gbc.gridx      = 0;
         gbc.gridy      = 0;
@@ -47,10 +56,10 @@ public class TotalCommanderLayout extends JFrame {
         gbc.anchor     = GridBagConstraints.CENTER;
         gbc.weightx    = 0.5;
         gbc.weighty    = 1.0;
-        fileDisplayPanel.add(fileList, gbc);
+        fileDisplayPanel.add(leftFileList, gbc);
     }
 
-    private void setUpMiddleActionButtons(Panel fileDisplayPanel) {
+    private void setUpMiddleActionButtons(JPanel fileDisplayPanel) {
         GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.gridx      = 1;
@@ -76,9 +85,9 @@ public class TotalCommanderLayout extends JFrame {
         fileDisplayPanel.add(new Button("<<"), gbc);
     }
 
-    private void setUpRightFileList(Panel fileDisplayPanel) {
+    private void setUpRightFileList(JPanel fileDisplayPanel) {
         GridBagConstraints gbc = new GridBagConstraints();
-        FileList fileList = new FileList();
+        rightFileList = new FileList();
 
         gbc.gridx      = 2;
         gbc.gridy      = 0;
@@ -88,7 +97,7 @@ public class TotalCommanderLayout extends JFrame {
         gbc.anchor     = GridBagConstraints.CENTER;
         gbc.weightx    = 0.5;
         gbc.weighty    = 1.0;
-        fileDisplayPanel.add(fileList, gbc);
+        fileDisplayPanel.add(rightFileList, gbc);
     }
 
     private void setUpListeners() {
@@ -96,6 +105,28 @@ public class TotalCommanderLayout extends JFrame {
             public void windowClosing(WindowEvent e) {
                 System.exit(0);
             }
+        });
+
+        leftFileList.getFileTable().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                leftFileList.setFocus(true);
+                rightFileList.setFocus(false);
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {}
+        });
+
+        rightFileList.getFileTable().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                rightFileList.setFocus(false);
+                leftFileList.setFocus(true);
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {}
         });
     }
 
@@ -113,6 +144,22 @@ public class TotalCommanderLayout extends JFrame {
         commandButtonPanel.add(moveButton);
         commandButtonPanel.add(removeButton);
         commandButtonPanel.add(exitButton);
+
+        copyButton.addActionListener(e -> {
+            ArrayList<String> leftSelected = leftFileList.getSelected();
+            ArrayList<String> rightSelected = rightFileList.getSelected();
+
+            FileCopyOperationDialog fileCopyOperationDialog;
+
+            if(leftFileList.getFocusStatus()) {
+                fileCopyOperationDialog = new FileCopyOperationDialog(leftSelected, rightSelected.get(0));
+
+            } else {
+                fileCopyOperationDialog = new FileCopyOperationDialog(rightSelected, leftSelected.get(0));
+            }
+
+            fileCopyOperationDialog.setVisible(true);
+        });
 
         exitButton.addActionListener(e -> {
             System.exit(0);

@@ -66,14 +66,6 @@ public class FileListLogic {
         return freeSpace.toString() + " k z " + totalSpace.toString() + " k wolne";
     }
 
-    public Object[][] getFileList() {
-        return fileList;
-    }
-
-    public MyTableModel getTableModel() {
-        return tableModel;
-    }
-
     public String getCurrentPath() {
         return currentPath;
     }

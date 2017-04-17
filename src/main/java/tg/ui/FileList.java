@@ -1,4 +1,4 @@
-package tg.ui.fileList;
+package tg.ui;
 
 import tg.logic.TableCellRenderer;
 import tg.logic.FileListLogic;
@@ -11,6 +11,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class FileList extends JPanel {
     private FileListLogic fileListLogic;
@@ -25,9 +26,12 @@ public class FileList extends JPanel {
 
     private JTable fileTable;
 
+    private Boolean isFocused;
+
     private TableRowSorter<TableModel> tableRowSorter;
 
     private void setUpFileList() {
+        isFocused = false;
         setLayout(new BorderLayout());
         setBackground(Color.LIGHT_GRAY);
 
@@ -84,6 +88,7 @@ public class FileList extends JPanel {
                 String newPath = (String) e.getItem();
 
                 fileListLogic.setCurrentDrive(newPath);
+                fileListLogic.setCurrentPath(newPath);
                 setFreeSpaceLabel();
                 displayFilesAndDirs();
                 setFileSystemLocationLabel(newPath);
@@ -102,6 +107,22 @@ public class FileList extends JPanel {
         setFileSystemLocationLabel();
     }
 
+    public ArrayList<String> getSelected() {
+        ArrayList<String> toReturn = new ArrayList<>();
+
+        if(isFocused) {
+            for(int row : fileTable.getSelectedRows()) {
+                Object[] element = (Object[]) fileTable.getValueAt(row, 0);
+
+                toReturn.add((String) element[1]);
+            }
+        } else {
+            toReturn.add(fileListLogic.getCurrentPath());
+        }
+
+        return toReturn;
+    }
+
     private void setFreeSpaceLabel() {
         freeSpaceLabel.setText(fileListLogic.getSpacesLabel());
     }
@@ -110,6 +131,9 @@ public class FileList extends JPanel {
         for(String path : fileListLogic.getDrivesList()) {
             drives.addItem(path);
         }
+
+        drives.addItem("/Users/tgwozdzik/Desktop");
+        drives.addItem("/Users/tgwozdzik/Documents/Prywatne");
     }
 
     private void updatePath(Integer rowIndex) {
@@ -131,5 +155,17 @@ public class FileList extends JPanel {
 
     private void setFileSystemLocationLabel(String labelText) {
         fileSystemLocationLabel.setText(labelText);
+    }
+
+    public void setFocus(Boolean focus) {
+        isFocused = focus;
+    }
+
+    public Boolean getFocusStatus() {
+        return isFocused;
+    }
+
+    public JTable getFileTable() {
+        return fileTable;
     }
 }
