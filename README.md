@@ -38,7 +38,7 @@ Uwagi dotyczące projektu i implementacji programu:
 - [ ] przesyłanie informacji między komponentami aplikacji należy realizować
   z użyciem zdarzeń i listenerów
 
-- [ ] należy zwrócić uwagę, że operacje wykonywane na plikach mogą być
+- [X] należy zwrócić uwagę, że operacje wykonywane na plikach mogą być
   długotrwałe, lecz nie powinny one powodować "zakłóceń" w funkcjonowaniu
   interfejsu użytkownika
 
@@ -49,7 +49,7 @@ Uwagi dotyczące projektu i implementacji programu:
 - [ ] podczas wykonywania operacji na plikach należy wyświetlić okno z paskiem
   postępu i przyciskiem pozwalającym na anulowanie bieżącej operacji
 
-- [ ] po wykonaniu operacji na plikach należy zaktualizować listy wyświetlanych
+- [X] po wykonaniu operacji na plikach należy zaktualizować listy wyświetlanych
   plików i folderów
 
 - [ ] aplikacja powinna umożliwiać dynamiczną zmianę wersji językowej interfejsu
