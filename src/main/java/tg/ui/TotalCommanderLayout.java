@@ -11,6 +11,8 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static javax.swing.JOptionPane.showMessageDialog;
+
 /**
  * Created by Tomasz Gwoździk on 09.04.2017.
  */
@@ -112,6 +114,8 @@ public class TotalCommanderLayout extends JFrame {
             public void focusGained(FocusEvent e) {
                 leftFileList.setFocus(true);
                 rightFileList.setFocus(false);
+
+                rightFileList.getFileTable().clearSelection();
             }
 
             @Override
@@ -123,6 +127,8 @@ public class TotalCommanderLayout extends JFrame {
             public void focusGained(FocusEvent e) {
                 rightFileList.setFocus(true);
                 leftFileList.setFocus(false);
+
+                leftFileList.getFileTable().clearSelection();
             }
 
             @Override
@@ -135,13 +141,11 @@ public class TotalCommanderLayout extends JFrame {
     private void setUpFooterButtons() {
         JPanel commandButtonPanel = new JPanel(new GridLayout());
 
-        JButton editButton   = new FlatButton("Edycja", FlatButton.RIGHT);
         JButton copyButton   = new FlatButton("Kopiuj", FlatButton.RIGHT);
         JButton moveButton   = new FlatButton("Przenieś", FlatButton.RIGHT);
         JButton removeButton = new FlatButton("Usuń", FlatButton.RIGHT);
         JButton exitButton   = new FlatButton("Zakończ");
 
-        commandButtonPanel.add(editButton);
         commandButtonPanel.add(copyButton);
         commandButtonPanel.add(moveButton);
         commandButtonPanel.add(removeButton);
@@ -150,6 +154,17 @@ public class TotalCommanderLayout extends JFrame {
         moveButton.addActionListener(e -> {
             ArrayList<String> leftSelected = leftFileList.getSelected();
             ArrayList<String> rightSelected = rightFileList.getSelected();
+
+            if(leftFileList.getFileTable().getSelectedRows().length == 0
+                    && rightFileList.getFileTable().getSelectedRows().length == 0) {
+                showMessageDialog(null, "Wybierz elementy do przeniesienia!");
+                return;
+            }
+
+            if(leftFileList.getCurrentPath().equals(rightFileList.getCurrentPath())) {
+                showMessageDialog(null, "Nie możesz przenosić pliku na ten sam plik!");
+                return;
+            }
 
             FileCopyOperationDialog fileCopyOperationDialog;
 
@@ -174,6 +189,17 @@ public class TotalCommanderLayout extends JFrame {
             ArrayList<String> leftSelected = leftFileList.getSelected();
             ArrayList<String> rightSelected = rightFileList.getSelected();
 
+            if(leftFileList.getFileTable().getSelectedRows().length == 0
+                    && rightFileList.getFileTable().getSelectedRows().length == 0) {
+                showMessageDialog(null, "Wybierz elementy do skopiowania!");
+                return;
+            }
+
+            if(leftFileList.getCurrentPath().equals(rightFileList.getCurrentPath())) {
+                showMessageDialog(null, "Nie możesz kopiować pliku na ten sam plik!");
+                return;
+            }
+
             FileCopyOperationDialog fileCopyOperationDialog;
 
             if(leftFileList.getFocusStatus()) {
@@ -196,6 +222,12 @@ public class TotalCommanderLayout extends JFrame {
         removeButton.addActionListener(e -> {
             ArrayList<String> leftSelected = leftFileList.getSelected();
             ArrayList<String> rightSelected = rightFileList.getSelected();
+
+            if(leftFileList.getFileTable().getSelectedRows().length == 0
+                    && rightFileList.getFileTable().getSelectedRows().length == 0) {
+                showMessageDialog(null, "Wybierz elementy do usunięcia");
+                return;
+            }
 
             FileCopyOperationDialog fileCopyOperationDialog;
 

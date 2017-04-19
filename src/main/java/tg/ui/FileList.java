@@ -94,8 +94,8 @@ public class FileList extends JPanel {
                 fileListLogic.setCurrentDrive(newPath);
                 fileListLogic.setCurrentPath(newPath);
                 setFreeSpaceLabel();
-                displayFilesAndDirs();
                 setFileSystemLocationLabel(newPath);
+                displayFilesAndDirs();
             }
         });
     }
@@ -144,6 +144,10 @@ public class FileList extends JPanel {
 
         displayFilesAndDirs();
         setFileSystemLocationLabel();
+    }
+
+    public String getCurrentPath() {
+        return fileListLogic.getCurrentPath();
     }
 
     private void displayFilesAndDirs() {
