@@ -12,6 +12,8 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 public class FileList extends JPanel {
@@ -61,6 +63,8 @@ public class FileList extends JPanel {
     private void setUpHeader() {
         this.drives = new JComboBox();
 
+        drives.setLightWeightPopupEnabled(false);
+
         this.fileHeaderPanel.add(fileSystemLocationLabel, BorderLayout.SOUTH);
         this.fileHeaderPanel.add(drives, BorderLayout.WEST);
         this.fileHeaderPanel.add(freeSpaceLabel, BorderLayout.CENTER);
@@ -91,10 +95,10 @@ public class FileList extends JPanel {
             if (e.getStateChange() == ItemEvent.SELECTED) {
                 String newPath = (String) e.getItem();
 
+                setFileSystemLocationLabel(newPath);
                 fileListLogic.setCurrentDrive(newPath);
                 fileListLogic.setCurrentPath(newPath);
                 setFreeSpaceLabel();
-                setFileSystemLocationLabel(newPath);
                 displayFilesAndDirs();
             }
         });
@@ -106,9 +110,9 @@ public class FileList extends JPanel {
         setUpColumnsSorter();
         setUpHeader();
         setUpListeners();
+        displayFilesAndDirs();
         setFileSystemLocationLabel();
         updateDrives();
-        displayFilesAndDirs();
     }
 
     public ArrayList<String> getSelected() {
@@ -140,10 +144,11 @@ public class FileList extends JPanel {
     private void updatePath(Integer rowIndex) {
         Object[] selectedValue = (Object[]) fileTable.getValueAt(rowIndex, 0);
 
+
+        setFileSystemLocationLabel();
         fileListLogic.updatePath(selectedValue);
 
         displayFilesAndDirs();
-        setFileSystemLocationLabel();
     }
 
     public String getCurrentPath() {

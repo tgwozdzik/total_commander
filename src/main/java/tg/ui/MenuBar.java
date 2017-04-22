@@ -48,6 +48,10 @@ public class MenuBar {
         exitMenuItem.addActionListener(e -> {
             System.exit(0);
         });
+
+        aboutAppMenuItem.addActionListener(e -> {
+            JOptionPane.showMessageDialog(null, "<html><center>Projekt zaliczeniowy na TPAL<br />Total Commander<br />Tomasz Gwoździk<br /></br />PUT 2017</center></html>");
+        });
     }
 
     public JMenuBar getMenuBar() {

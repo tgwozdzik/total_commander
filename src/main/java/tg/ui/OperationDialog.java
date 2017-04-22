@@ -6,8 +6,6 @@ import tg.logic.Move;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -29,6 +27,8 @@ public class OperationDialog extends JFrame {
     private JButton btnCopy;
     private JLabel txtFile;
 
+    private JLabel lblFile;
+
     private void setUpLayout() {
         setPreferredSize(new Dimension(500, 170));
         setResizable(false);
@@ -44,7 +44,7 @@ public class OperationDialog extends JFrame {
 
         JLabel lblSource = new JLabel("Zródło: ");
         JLabel lblTarget = new JLabel("Cel: ");
-        JLabel lblFile = new JLabel("Trwa kopiowanie: ");
+        lblFile = new JLabel("Trwa kopiowanie: ");
 
         StringBuilder sourceText = new StringBuilder();
         StringBuilder sourceTextFlat = new StringBuilder();
@@ -130,16 +130,19 @@ public class OperationDialog extends JFrame {
     private void setLabels() {
         switch(isCopying) {
             case 0:
-                setTitle("Zmiana nazwy/Przenoszenie");
-                btnCopy.setText("Zmień nazwę/Przenieś");
+                setTitle("Przenoszenie");
+                btnCopy.setText("Przenieś");
+                lblFile.setText("Trwa przenoszenie: ");
                 break;
             case 1:
                 setTitle("Kopiowanie");
                 btnCopy.setText("Kopiuj");
+                lblFile.setText("Trwa kopiowanie: ");
                 break;
             case 2:
                 setTitle("Usuwanie");
                 btnCopy.setText("Usuń");
+                lblFile.setText("Trwa usuwanie: ");
                 break;
         }
     }
@@ -147,13 +150,13 @@ public class OperationDialog extends JFrame {
     private void cancelAction() {
         switch(isCopying) {
             case 0:
-                if(move != null && move.getIsRunning() != null) move.cancel(true);
+                if(move != null && move.getIsRunning()) move.endTask();
                 break;
             case 1:
-                if(copy != null && copy.getIsRunning() != null) copy.cancel(true);
+                if(copy != null && copy.getIsRunning()) copy.endTask();
                 break;
             case 2:
-                if(delete != null && delete.getIsRunning() != null) delete.cancel(true);
+                if(delete != null && delete.getIsRunning()) delete.endTask();
                 break;
         }
 

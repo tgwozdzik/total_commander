@@ -98,6 +98,8 @@ public class Copy extends SwingWorker<Void, List<Object>> {
     }
 
     private void copyFiles(File sourceFile, File targetFile) throws IOException {
+        if(!isRunning) return;
+
         if(sourceFile.isDirectory())
         {
             if(!targetFile.exists()) targetFile.mkdirs();
@@ -136,6 +138,10 @@ public class Copy extends SwingWorker<Void, List<Object>> {
 
     public Boolean getIsRunning() {
         return isRunning;
+    }
+
+    public void endTask() {
+        this.isRunning = false;
     }
 }
 

@@ -95,6 +95,8 @@ public class Delete extends SwingWorker<Void, List<Object>> {
     }
 
     private void removeFiles(File sourceFile) throws IOException {
+        if(!isRunning) return;
+
         if(sourceFile.isDirectory())
         {
             String[] filePaths = sourceFile.list();
@@ -129,6 +131,10 @@ public class Delete extends SwingWorker<Void, List<Object>> {
 
     public Boolean getIsRunning() {
         return isRunning;
+    }
+
+    public void endTask() {
+        this.isRunning = false;
     }
 }
 

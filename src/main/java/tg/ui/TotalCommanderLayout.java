@@ -1,11 +1,13 @@
 package tg.ui;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -61,6 +63,31 @@ public class TotalCommanderLayout extends JFrame {
     private void setUpMiddleActionButtons(JPanel fileDisplayPanel) {
         GridBagConstraints gbc = new GridBagConstraints();
 
+        FlatButton copy = new FlatButton("");
+        Image copyIcon = null;
+        try {
+            copyIcon = ImageIO.read(getClass().getResource("copy.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if(copyIcon != null) {
+            copy.setIcon(new ImageIcon(copyIcon));
+        }
+
+        FlatButton move = new FlatButton("");
+        Image moveIcon = null;
+        try {
+            moveIcon = ImageIO.read(getClass().getResource("move.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if(moveIcon != null) {
+            move.setIcon(new ImageIcon(moveIcon));
+        }
+        move.setSize(16,16 );
+
         gbc.gridx      = 1;
         gbc.gridy      = 0;
         gbc.gridwidth  = 1;
@@ -70,7 +97,7 @@ public class TotalCommanderLayout extends JFrame {
         gbc.weightx    = 0.0;
         gbc.weighty    = 0.5;
         gbc.insets     = new Insets(0, 4, 2, 4);
-        fileDisplayPanel.add(new Button(">>"), gbc);
+        fileDisplayPanel.add(copy, gbc);
 
         gbc.gridx      = 1;
         gbc.gridy      = 1;
@@ -81,7 +108,15 @@ public class TotalCommanderLayout extends JFrame {
         gbc.weightx    = 0.0;
         gbc.weighty    = 0.5;
         gbc.insets     = new Insets(2, 4, 0, 4);
-        fileDisplayPanel.add(new Button("<<"), gbc);
+        fileDisplayPanel.add(move, gbc);
+
+        move.addActionListener(e -> {
+            moveOperation();
+        });
+
+        copy.addActionListener(e -> {
+            copyOperation();
+        });
     }
 
     private void setUpRightFileList(JPanel fileDisplayPanel) {
@@ -131,8 +166,74 @@ public class TotalCommanderLayout extends JFrame {
             @Override
             public void focusLost(FocusEvent e) {}
         });
+    }
 
+    private void moveOperation() {
+        ArrayList<String> leftSelected = leftFileList.getSelected();
+        ArrayList<String> rightSelected = rightFileList.getSelected();
 
+        if(leftFileList.getFileTable().getSelectedRows().length == 0
+                && rightFileList.getFileTable().getSelectedRows().length == 0) {
+            showMessageDialog(null, "Wybierz elementy do przeniesienia!");
+            return;
+        }
+
+        if(leftFileList.getCurrentPath().equals(rightFileList.getCurrentPath())) {
+            showMessageDialog(null, "Nie możesz przenosić pliku na ten sam plik!");
+            return;
+        }
+
+        OperationDialog operationDialog;
+
+        if(leftFileList.getFocusStatus()) {
+            operationDialog = new OperationDialog(leftSelected, rightSelected.get(0), 0);
+
+        } else {
+            operationDialog = new OperationDialog(rightSelected, leftSelected.get(0), 0);
+        }
+
+        operationDialog.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                leftFileList.refresh();
+                rightFileList.refresh();
+            }
+        });
+        operationDialog.setVisible(true);
+    }
+
+    private void copyOperation() {
+        ArrayList<String> leftSelected = leftFileList.getSelected();
+        ArrayList<String> rightSelected = rightFileList.getSelected();
+
+        if(leftFileList.getFileTable().getSelectedRows().length == 0
+                && rightFileList.getFileTable().getSelectedRows().length == 0) {
+            showMessageDialog(null, "Wybierz elementy do skopiowania!");
+            return;
+        }
+
+        if(leftFileList.getCurrentPath().equals(rightFileList.getCurrentPath())) {
+            showMessageDialog(null, "Nie możesz kopiować pliku na ten sam plik!");
+            return;
+        }
+
+        OperationDialog operationDialog;
+
+        if(leftFileList.getFocusStatus()) {
+            operationDialog = new OperationDialog(leftSelected, rightSelected.get(0), 1);
+
+        } else {
+            operationDialog = new OperationDialog(rightSelected, leftSelected.get(0), 1);
+        }
+
+        operationDialog.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                leftFileList.refresh();
+                rightFileList.refresh();
+            }
+        });
+        operationDialog.setVisible(true);
     }
 
     private void setUpFooterButtons() {
@@ -149,71 +250,11 @@ public class TotalCommanderLayout extends JFrame {
         commandButtonPanel.add(exitButton);
 
         moveButton.addActionListener(e -> {
-            ArrayList<String> leftSelected = leftFileList.getSelected();
-            ArrayList<String> rightSelected = rightFileList.getSelected();
-
-            if(leftFileList.getFileTable().getSelectedRows().length == 0
-                    && rightFileList.getFileTable().getSelectedRows().length == 0) {
-                showMessageDialog(null, "Wybierz elementy do przeniesienia!");
-                return;
-            }
-
-            if(leftFileList.getCurrentPath().equals(rightFileList.getCurrentPath())) {
-                showMessageDialog(null, "Nie możesz przenosić pliku na ten sam plik!");
-                return;
-            }
-
-            OperationDialog operationDialog;
-
-            if(leftFileList.getFocusStatus()) {
-                operationDialog = new OperationDialog(leftSelected, rightSelected.get(0), 0);
-
-            } else {
-                operationDialog = new OperationDialog(rightSelected, leftSelected.get(0), 0);
-            }
-
-            operationDialog.addWindowListener(new WindowAdapter() {
-                @Override
-                public void windowClosed(WindowEvent e) {
-                    leftFileList.refresh();
-                    rightFileList.refresh();
-                }
-            });
-            operationDialog.setVisible(true);
+            moveOperation();
         });
 
         copyButton.addActionListener(e -> {
-            ArrayList<String> leftSelected = leftFileList.getSelected();
-            ArrayList<String> rightSelected = rightFileList.getSelected();
-
-            if(leftFileList.getFileTable().getSelectedRows().length == 0
-                    && rightFileList.getFileTable().getSelectedRows().length == 0) {
-                showMessageDialog(null, "Wybierz elementy do skopiowania!");
-                return;
-            }
-
-            if(leftFileList.getCurrentPath().equals(rightFileList.getCurrentPath())) {
-                showMessageDialog(null, "Nie możesz kopiować pliku na ten sam plik!");
-                return;
-            }
-
-            OperationDialog operationDialog;
-
-            if(leftFileList.getFocusStatus()) {
-                operationDialog = new OperationDialog(leftSelected, rightSelected.get(0), 1);
-
-            } else {
-                operationDialog = new OperationDialog(rightSelected, leftSelected.get(0), 1);
-            }
-
-            operationDialog.addWindowListener(new WindowAdapter() {
-                @Override
-                public void windowClosed(WindowEvent e) {
-                    leftFileList.refresh();
-                    rightFileList.refresh();
-                }
-            });
-            operationDialog.setVisible(true);
+            copyOperation();
         });
 
         removeButton.addActionListener(e -> {
