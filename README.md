@@ -10,13 +10,13 @@ plikach i folderach.
 
 Uwagi dotyczące projektu i implementacji programu:
 
-- [ ] wygląd i funkcjonalność interfejsu użytkownika powinien być w maksymalnym
+- [X] wygląd i funkcjonalność interfejsu użytkownika powinien być w maksymalnym
   stopniu wzorowany na programie Total Commander (układ okien, menu,
   listwa narzędziowa, panele z zakładkami wyświetlającymi listy pliki
   i folderów, sposób sortowania plików i folderów na listach, sposób
   "poruszania się" po strukturze systemu plików itp.)
 
-- [ ] aplikacja powinna być zaprojektowana w taki sposób, aby interfejs
+- [X] aplikacja powinna być zaprojektowana w taki sposób, aby interfejs
   użytkownika był niezależny od kodu realizujacego wybrane operacje na
   plikach i folderach
 
@@ -35,18 +35,18 @@ Uwagi dotyczące projektu i implementacji programu:
 - [X] aplikacja powinna umożliwiać zaznaczanie plików i folderów za pomocą
   myszki (opcjonalnie także klawiatury)
 
-- [ ] przesyłanie informacji między komponentami aplikacji należy realizować
+- [X] przesyłanie informacji między komponentami aplikacji należy realizować
   z użyciem zdarzeń i listenerów
 
 - [X] należy zwrócić uwagę, że operacje wykonywane na plikach mogą być
   długotrwałe, lecz nie powinny one powodować "zakłóceń" w funkcjonowaniu
   interfejsu użytkownika
 
-- [ ] przed usunięciem plików (folderów) lub jeśli zajdzie taka konieczność
+- [X] przed usunięciem plików (folderów) lub jeśli zajdzie taka konieczność
   podczas kopiowania lub przesuwania plików należy zażądać od użytkownika
   potwierdzenia wykonania operacji
 
-- [ ] podczas wykonywania operacji na plikach należy wyświetlić okno z paskiem
+- [X] podczas wykonywania operacji na plikach należy wyświetlić okno z paskiem
   postępu i przyciskiem pozwalającym na anulowanie bieżącej operacji
 
 - [X] po wykonaniu operacji na plikach należy zaktualizować listy wyświetlanych
