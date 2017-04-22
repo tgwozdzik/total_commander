@@ -8,9 +8,8 @@
   <component name="ChangeListManager">
     <list default="true" id="fd8b280d-1d75-4f82-a79a-d2eb8ac18e35" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tg/ui/FileCopyOperationDialog.java" afterPath="$PROJECT_DIR$/src/main/java/tg/ui/FileCopyOperationDialog.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tg/ui/FileList.java" afterPath="$PROJECT_DIR$/src/main/java/tg/ui/FileList.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tg/ui/TotalCommanderLayout.java" afterPath="$PROJECT_DIR$/src/main/java/tg/ui/TotalCommanderLayout.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/tg/ui/FileCopyOperationDialog.java" afterPath="$PROJECT_DIR$/src/main/java/tg/ui/OperationDialog.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -23,7 +22,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
+    <splitter split-orientation="horizontal" split-proportion="0.5409134">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
@@ -36,11 +35,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="FileCopyOperationDialog.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/tg/ui/FileCopyOperationDialog.java">
+          <file leaf-file-name="OperationDialog.java" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/main/java/tg/ui/OperationDialog.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1476">
-                  <caret line="153" column="0" lean-forward="true" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
+                <state relative-caret-position="274">
+                  <caret line="288" column="35" lean-forward="true" selection-start-line="288" selection-start-column="35" selection-end-line="288" selection-end-column="35" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -51,8 +50,8 @@
           <file leaf-file-name="Copy.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/java/tg/logic/Copy.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1666">
-                  <caret line="103" column="0" lean-forward="false" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+                <state relative-caret-position="340">
+                  <caret line="20" column="40" lean-forward="false" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="40" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -60,19 +59,16 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="FileList.java" pinned="false" current-in-tab="true">
+          <file leaf-file-name="FileList.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/java/tg/ui/FileList.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-139">
-                  <caret line="30" column="0" lean-forward="true" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+                <state relative-caret-position="244">
+                  <caret line="79" column="0" lean-forward="false" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
                   <folding>
                     <element signature="method#setUpHeader#0;class#FileList#0" expanded="false" />
                     <element signature="method#setUpCellsRender#0;class#FileList#0" expanded="false" />
-                    <element signature="method#setUpListeners#0;class#FileList#0" expanded="false" />
                     <element signature="method#getSelected#0;class#FileList#0" expanded="false" />
                     <element signature="method#updatePath#0;class#FileList#0" expanded="false" />
-                    <element signature="e#4596#4597#0" expanded="true" />
-                    <element signature="e#4649#4650#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -83,7 +79,10 @@
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="782">
                   <caret line="46" column="32" lean-forward="false" selection-start-line="46" selection-start-column="32" selection-end-line="46" selection-end-column="32" />
-                  <folding />
+                  <folding>
+                    <element signature="e#1121#1122#0" expanded="false" />
+                    <element signature="e#1151#1152#0" expanded="false" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -95,7 +94,7 @@
           <file leaf-file-name="FileListLogic.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/java/tg/logic/FileListLogic.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="305">
+                <state relative-caret-position="1020">
                   <caret line="68" column="32" lean-forward="false" selection-start-line="68" selection-start-column="18" selection-end-line="68" selection-end-column="32" />
                   <folding />
                 </state>
@@ -107,16 +106,20 @@
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="697">
                   <caret line="50" column="9" lean-forward="false" selection-start-line="50" selection-start-column="9" selection-end-line="50" selection-end-column="9" />
-                  <folding />
+                  <folding>
+                    <element signature="imports" expanded="false" />
+                    <element signature="e#496#497#0" expanded="false" />
+                    <element signature="e#563#564#0" expanded="false" />
+                  </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="TotalCommanderLayout.java" pinned="false" current-in-tab="true">
+          <file leaf-file-name="TotalCommanderLayout.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/java/tg/ui/TotalCommanderLayout.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="237">
-                  <caret line="164" column="61" lean-forward="false" selection-start-line="164" selection-start-column="61" selection-end-line="164" selection-end-column="61" />
+                <state relative-caret-position="1138">
+                  <caret line="244" column="30" lean-forward="false" selection-start-line="244" selection-start-column="30" selection-end-line="244" selection-end-column="30" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -137,13 +140,16 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Move.java" pinned="false" current-in-tab="false">
+          <file leaf-file-name="Move.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/java/tg/logic/Move.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1632">
-                  <caret line="101" column="9" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
+                <state relative-caret-position="629">
+                  <caret line="80" column="50" lean-forward="true" selection-start-line="80" selection-start-column="12" selection-end-line="80" selection-end-column="50" />
                   <folding>
                     <element signature="imports" expanded="true" />
+                    <element signature="method#process#0;class#Move#0" expanded="false" />
+                    <element signature="e#1849#1850#0" expanded="true" />
+                    <element signature="e#1909#1910#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -164,7 +170,12 @@
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="221">
                   <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-                  <folding />
+                  <folding>
+                    <element signature="e#228#229#0" expanded="false" />
+                    <element signature="e#268#269#0" expanded="false" />
+                    <element signature="e#339#340#0" expanded="false" />
+                    <element signature="e#367#368#0" expanded="false" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -242,6 +253,8 @@
         <option value="$PROJECT_DIR$/src/main/java/tg/ui/FileCopyOperationDialog.java" />
         <option value="$PROJECT_DIR$/src/main/java/tg/ui/FileList.java" />
         <option value="$PROJECT_DIR$/src/main/java/tg/ui/TotalCommanderLayout.java" />
+        <option value="C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/util/ArrayList.java" />
+        <option value="$PROJECT_DIR$/src/main/java/tg/ui/OperationDialog.java" />
       </list>
     </option>
   </component>
@@ -275,8 +288,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -411,16 +423,19 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/java" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -903,14 +918,21 @@
       <workItem from="1492546744484" duration="286000" />
       <workItem from="1492623997544" duration="4410000" />
       <workItem from="1492630981932" duration="3147000" />
+      <workItem from="1492716830581" duration="27000" />
+      <workItem from="1492761905587" duration="196000" />
+      <workItem from="1492762115540" duration="502000" />
+      <workItem from="1492762634978" duration="15000" />
+      <workItem from="1492762788660" duration="39000" />
+      <workItem from="1492883892094" duration="7089000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15018000" />
+    <option name="totallyTimeSpent" value="22886000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -921,8 +943,8 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32901296" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2848392" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3284839" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2848392" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -946,20 +968,22 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="processedProjectFiles" value="true" />
   </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/tg/ui/FileList.java</url>
-          <line>79</line>
-          <properties />
-          <option name="timeStamp" value="62" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="63" />
+      <option name="time" value="65" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -968,14 +992,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/tg/ui/fileList/FileList.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/tg/logic/comparators/FileNameComparator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/tg/logic/comparators/FileSizeComparator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -1002,7 +1018,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="697">
           <caret line="50" column="9" lean-forward="false" selection-start-line="50" selection-start-column="9" selection-end-line="50" selection-end-column="9" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#496#497#0" expanded="false" />
+            <element signature="e#563#564#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1028,7 +1048,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#228#229#0" expanded="false" />
+            <element signature="e#268#269#0" expanded="false" />
+            <element signature="e#339#340#0" expanded="false" />
+            <element signature="e#367#368#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1055,7 +1080,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="697">
           <caret line="50" column="9" lean-forward="false" selection-start-line="50" selection-start-column="9" selection-end-line="50" selection-end-column="9" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#496#497#0" expanded="false" />
+            <element signature="e#563#564#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1063,7 +1092,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#228#229#0" expanded="false" />
+            <element signature="e#268#269#0" expanded="false" />
+            <element signature="e#339#340#0" expanded="false" />
+            <element signature="e#367#368#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1092,7 +1126,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="782">
           <caret line="46" column="32" lean-forward="false" selection-start-line="46" selection-start-column="32" selection-end-line="46" selection-end-column="32" />
-          <folding />
+          <folding>
+            <element signature="e#1121#1122#0" expanded="false" />
+            <element signature="e#1151#1152#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1153,7 +1190,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="782">
           <caret line="46" column="32" lean-forward="false" selection-start-line="46" selection-start-column="32" selection-end-line="46" selection-end-column="32" />
-          <folding />
+          <folding>
+            <element signature="e#1121#1122#0" expanded="false" />
+            <element signature="e#1151#1152#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1183,7 +1223,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#228#229#0" expanded="false" />
+            <element signature="e#268#269#0" expanded="false" />
+            <element signature="e#339#340#0" expanded="false" />
+            <element signature="e#367#368#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1193,7 +1238,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="697">
           <caret line="50" column="9" lean-forward="false" selection-start-line="50" selection-start-column="9" selection-end-line="50" selection-end-column="9" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#496#497#0" expanded="false" />
+            <element signature="e#563#564#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1213,26 +1262,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tg/logic/Move.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1632">
-          <caret line="101" column="9" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tg/logic/Copy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1666">
-          <caret line="103" column="0" lean-forward="false" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/tg/logic/Delete.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1802">
@@ -1244,28 +1273,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tg/ui/FileCopyOperationDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1476">
-          <caret line="153" column="0" lean-forward="true" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/tg/logic/FileListLogic.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
+        <state relative-caret-position="1020">
           <caret line="68" column="32" lean-forward="false" selection-start-line="68" selection-start-column="18" selection-end-line="68" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tg/ui/TotalCommanderLayout.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/com/sun/corba/se/impl/orb/ParserTable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="164" column="61" lean-forward="false" selection-start-line="164" selection-start-column="61" selection-end-line="164" selection-end-column="61" />
+        <state relative-caret-position="284">
+          <caret line="977" column="30" lean-forward="false" selection-start-line="977" selection-start-column="30" selection-end-line="977" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tg/logic/Copy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="40" lean-forward="false" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1274,16 +1301,54 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/tg/ui/FileList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-139">
-          <caret line="30" column="0" lean-forward="true" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+        <state relative-caret-position="244">
+          <caret line="79" column="0" lean-forward="false" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
           <folding>
             <element signature="method#setUpHeader#0;class#FileList#0" expanded="false" />
             <element signature="method#setUpCellsRender#0;class#FileList#0" expanded="false" />
-            <element signature="method#setUpListeners#0;class#FileList#0" expanded="false" />
             <element signature="method#getSelected#0;class#FileList#0" expanded="false" />
             <element signature="method#updatePath#0;class#FileList#0" expanded="false" />
-            <element signature="e#4596#4597#0" expanded="true" />
-            <element signature="e#4649#4650#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tg/ui/TotalCommanderLayout.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1138">
+          <caret line="244" column="30" lean-forward="false" selection-start-line="244" selection-start-column="30" selection-end-line="244" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tg/logic/Move.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="80" column="50" lean-forward="true" selection-start-line="80" selection-start-column="12" selection-end-line="80" selection-end-column="50" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#process#0;class#Move#0" expanded="false" />
+            <element signature="e#1849#1850#0" expanded="true" />
+            <element signature="e#1909#1910#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/util/ArrayList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="105" column="13" lean-forward="false" selection-start-line="105" selection-start-column="13" selection-end-line="105" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tg/ui/OperationDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="288" column="35" lean-forward="true" selection-start-line="288" selection-start-column="35" selection-end-line="288" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1304,7 +1369,6 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
-                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>
@@ -1352,7 +1416,6 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
-                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>

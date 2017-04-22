@@ -1,7 +1,5 @@
 package tg.ui;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
@@ -9,7 +7,6 @@ import java.awt.event.FocusListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -166,23 +163,23 @@ public class TotalCommanderLayout extends JFrame {
                 return;
             }
 
-            FileCopyOperationDialog fileCopyOperationDialog;
+            OperationDialog operationDialog;
 
             if(leftFileList.getFocusStatus()) {
-                fileCopyOperationDialog = new FileCopyOperationDialog(leftSelected, rightSelected.get(0), 0);
+                operationDialog = new OperationDialog(leftSelected, rightSelected.get(0), 0);
 
             } else {
-                fileCopyOperationDialog = new FileCopyOperationDialog(rightSelected, leftSelected.get(0), 0);
+                operationDialog = new OperationDialog(rightSelected, leftSelected.get(0), 0);
             }
 
-            fileCopyOperationDialog.addWindowListener(new WindowAdapter() {
+            operationDialog.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosed(WindowEvent e) {
                     leftFileList.refresh();
                     rightFileList.refresh();
                 }
             });
-            fileCopyOperationDialog.setVisible(true);
+            operationDialog.setVisible(true);
         });
 
         copyButton.addActionListener(e -> {
@@ -200,23 +197,23 @@ public class TotalCommanderLayout extends JFrame {
                 return;
             }
 
-            FileCopyOperationDialog fileCopyOperationDialog;
+            OperationDialog operationDialog;
 
             if(leftFileList.getFocusStatus()) {
-                fileCopyOperationDialog = new FileCopyOperationDialog(leftSelected, rightSelected.get(0), 1);
+                operationDialog = new OperationDialog(leftSelected, rightSelected.get(0), 1);
 
             } else {
-                fileCopyOperationDialog = new FileCopyOperationDialog(rightSelected, leftSelected.get(0), 1);
+                operationDialog = new OperationDialog(rightSelected, leftSelected.get(0), 1);
             }
 
-            fileCopyOperationDialog.addWindowListener(new WindowAdapter() {
+            operationDialog.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosed(WindowEvent e) {
                     leftFileList.refresh();
                     rightFileList.refresh();
                 }
             });
-            fileCopyOperationDialog.setVisible(true);
+            operationDialog.setVisible(true);
         });
 
         removeButton.addActionListener(e -> {
@@ -229,23 +226,23 @@ public class TotalCommanderLayout extends JFrame {
                 return;
             }
 
-            FileCopyOperationDialog fileCopyOperationDialog;
+            OperationDialog operationDialog;
 
             if(leftFileList.getFocusStatus()) {
-                fileCopyOperationDialog = new FileCopyOperationDialog(leftSelected, null, 2);
+                operationDialog = new OperationDialog(leftSelected, null, 2);
 
             } else {
-                fileCopyOperationDialog = new FileCopyOperationDialog(rightSelected, null, 2);
+                operationDialog = new OperationDialog(rightSelected, null, 2);
             }
 
-            fileCopyOperationDialog.addWindowListener(new WindowAdapter() {
+            operationDialog.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosed(WindowEvent e) {
                     leftFileList.refresh();
                     rightFileList.refresh();
                 }
             });
-            fileCopyOperationDialog.setVisible(true);
+            operationDialog.setVisible(true);
         });
 
         exitButton.addActionListener(e -> {

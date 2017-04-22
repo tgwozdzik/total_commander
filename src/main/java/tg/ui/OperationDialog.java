@@ -10,12 +10,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.util.ArrayList;
 
 /**
  * Created by tgwozdzik on 16.04.2017.
  */
-public class FileCopyOperationDialog extends JFrame {
+public class OperationDialog extends JFrame {
     private Copy copy;
     private Move move;
     private Delete delete;
@@ -46,14 +47,18 @@ public class FileCopyOperationDialog extends JFrame {
         JLabel lblFile = new JLabel("Trwa kopiowanie: ");
 
         StringBuilder sourceText = new StringBuilder();
+        StringBuilder sourceTextFlat = new StringBuilder();
         sourceText.append("<html>");
         for(String sourceObj : source) {
+            sourceTextFlat.append(sourceObj).append(";");
             sourceText.append(sourceObj).append("<br />");
         }
         sourceText.append("</html>");
 
-        JLabel txtSource = new JLabel(sourceText.toString());
+        JLabel txtSource = new JLabel(sourceTextFlat.toString());
+        txtSource.setToolTipText(sourceText.toString());
         JLabel txtTarget = new JLabel(target);
+        txtTarget.setToolTipText(target);
         txtFile  = new JLabel("...");
 
         JLabel lblProgressAll = new JLabel("Całkowity postęp: ");
@@ -167,50 +172,154 @@ public class FileCopyOperationDialog extends JFrame {
                 runDelete();
                 break;
         }
+    }
 
-        btnCopy.setText("Anuluj");
+    private Object[] canRunOperation() {
+        Boolean canMakeOperation = true;
+        StringBuilder message = new StringBuilder();
+        message.append("<html>The source file/directory does not exist!<br /><br />");
+        for(String sourceObj : source) {
+            File file = new File(sourceObj);
+            if(!file.exists()) {
+                canMakeOperation = false;
+
+                message.append(sourceObj).append("<br />");
+            }
+        }
+        message.append("</html>");
+
+        return new Object[]{canMakeOperation, message.toString()};
+    }
+
+    private ArrayList<String> getSourceElements() {
+        ArrayList<String> newSourceList = new ArrayList<>();
+        for(String sourceObj : source) {
+            File file = new File(sourceObj);
+            File fileTarget = new File (target + File.separator + file.getName());
+
+            Object[] options = {"Nadpisz wszystkie",
+                    "Nadpisz bieżący",
+                    "Pomiń"};
+
+            if(fileTarget.exists()) {
+                int option = JOptionPane.showOptionDialog(this, "<html>The target file/directory already exists, do you want to overwrite it?<br />"+fileTarget.getAbsolutePath() + "</html>", "Overwrite the target", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
+
+                if(option == JOptionPane.YES_OPTION) {
+                    newSourceList = source;
+
+                    break;
+                }
+
+                if(option == JOptionPane.NO_OPTION) {
+                    newSourceList.add(sourceObj);
+                }
+            } else {
+                newSourceList.add(sourceObj);
+            }
+        }
+
+        return newSourceList;
+    }
+
+    private ArrayList<String> checkElementsToDelete() {
+        ArrayList<String> newSourceList = new ArrayList<>();
+        for(String sourceObj : source) {
+            File file = new File(sourceObj);
+
+            if(file.isDirectory() && file.listFiles().length > 0) {
+                Object[] options = {"Usuń wszystkie",
+                        "Usuń bieżący",
+                        "Pomiń"};
+
+                int option = JOptionPane.showOptionDialog(this, "<html>The directory is not empty, do you want to delete it anyway?<br />"+file.getAbsolutePath() + "</html>", "Delete directory", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
+
+                if(option == JOptionPane.YES_OPTION) {
+                    newSourceList = source;
+
+                    break;
+                }
+
+                if(option == JOptionPane.NO_OPTION) {
+                    newSourceList.add(sourceObj);
+                }
+            } else {
+                newSourceList.add(sourceObj);
+            }
+        }
+
+        return newSourceList;
     }
 
     private void runCopy() {
         SwingUtilities.invokeLater(() -> {
-            copy = new Copy(source, target, progressAll, txtFile);
-            copy.execute();
+            Object[] canRunOperation = canRunOperation();
 
-            copy.addPropertyChangeListener(evt -> {
-                if("state".equals(evt.getPropertyName()) && SwingWorker.StateValue.DONE == evt.getNewValue()) {
-                    dispose();
+            if(!((boolean) canRunOperation[0])) {
+                JOptionPane.showMessageDialog(this, canRunOperation[1], "ERROR", JOptionPane.ERROR_MESSAGE);
+            } else {
+                ArrayList<String> newSourceList = getSourceElements();
+
+                if(newSourceList.size() > 0) {
+                    copy = new Copy(newSourceList, target, progressAll, txtFile);
+                    copy.execute();
+
+                    copy.addPropertyChangeListener(evt -> {
+                        if ("state".equals(evt.getPropertyName()) && SwingWorker.StateValue.DONE == evt.getNewValue()) {
+                            dispose();
+                        }
+                    });
+
+                    btnCopy.setText("Anuluj");
                 }
-            });
+            }
         });
     }
 
     private void runMove() {
         SwingUtilities.invokeLater(() -> {
-            move = new Move(source, target, progressAll, txtFile);
-            move.execute();
+            Object[] canRunOperation = canRunOperation();
 
-            move.addPropertyChangeListener(evt -> {
-                if("state".equals(evt.getPropertyName()) && SwingWorker.StateValue.DONE == evt.getNewValue()) {
-                    dispose();
+            if(!((boolean) canRunOperation[0])) {
+                JOptionPane.showMessageDialog(this, canRunOperation[1], "ERROR", JOptionPane.ERROR_MESSAGE);
+            } else {
+                ArrayList<String> newSourceList = getSourceElements();
+
+                if(newSourceList.size() > 0) {
+                    move = new Move(newSourceList, target, progressAll, txtFile);
+                    move.execute();
+
+                    move.addPropertyChangeListener(evt -> {
+                        if("state".equals(evt.getPropertyName()) && SwingWorker.StateValue.DONE == evt.getNewValue()) {
+                            dispose();
+                        }
+                    });
+
+                    btnCopy.setText("Anuluj");
                 }
-            });
+            }
         });
     }
 
     private void runDelete() {
         SwingUtilities.invokeLater(() -> {
-            delete = new Delete(source, progressAll, txtFile);
-            delete.execute();
+            ArrayList<String> newSourceList = checkElementsToDelete();
 
-            delete.addPropertyChangeListener(evt -> {
-                if("state".equals(evt.getPropertyName()) && SwingWorker.StateValue.DONE == evt.getNewValue()) {
-                    dispose();
-                }
-            });
+            if(newSourceList.size() > 0) {
+                delete = new Delete(newSourceList, progressAll, txtFile);
+                delete.execute();
+
+                delete.addPropertyChangeListener(evt -> {
+                    if ("state".equals(evt.getPropertyName()) && SwingWorker.StateValue.DONE == evt.getNewValue()) {
+                        dispose();
+                    }
+                });
+
+                btnCopy.setText("Anuluj");
+            }
         });
     }
 
-    public FileCopyOperationDialog(ArrayList<String> source, String target, Integer isCopying) {
+    public OperationDialog(ArrayList<String> source, String target, Integer isCopying) {
         this.source = source;
         this.target = target;
         this.isCopying = isCopying;
