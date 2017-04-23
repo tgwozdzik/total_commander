@@ -8,10 +8,10 @@
   <component name="ChangeListManager">
     <list default="true" id="fd8b280d-1d75-4f82-a79a-d2eb8ac18e35" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tg/logic/Context.java" afterPath="$PROJECT_DIR$/src/main/java/tg/logic/Context.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tg/logic/FileListLogic.java" afterPath="$PROJECT_DIR$/src/main/java/tg/logic/FileListLogic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tg/logic/TableCellRenderer.java" afterPath="$PROJECT_DIR$/src/main/java/tg/logic/TableCellRenderer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tg/ui/FileTable.java" afterPath="$PROJECT_DIR$/src/main/java/tg/ui/FileTable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tg/ui/TotalCommanderLayout.java" afterPath="$PROJECT_DIR$/src/main/java/tg/ui/TotalCommanderLayout.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/Locales.properties" afterPath="$PROJECT_DIR$/src/main/resources/Locales.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/Locales_en.properties" afterPath="$PROJECT_DIR$/src/main/resources/Locales_en.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/Locales_pl.properties" afterPath="$PROJECT_DIR$/src/main/resources/Locales_pl.properties" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -27,11 +27,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf>
-          <file leaf-file-name="TotalCommanderLayout.java" pinned="false" current-in-tab="false">
+          <file leaf-file-name="TotalCommanderLayout.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/java/tg/ui/TotalCommanderLayout.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-1660">
-                  <caret line="42" column="65" lean-forward="false" selection-start-line="42" selection-start-column="65" selection-end-line="42" selection-end-column="65" />
+                <state relative-caret-position="702">
+                  <caret line="339" column="0" lean-forward="false" selection-start-line="339" selection-start-column="0" selection-end-line="339" selection-end-column="0" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -42,8 +42,8 @@
           <file leaf-file-name="Locales.properties" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/resources/Locales.properties">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="136">
-                  <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="10" selection-end-column="27" />
+                <state relative-caret-position="187">
+                  <caret line="11" column="4" lean-forward="true" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
                   <folding />
                 </state>
               </provider>
@@ -52,8 +52,8 @@
           <file leaf-file-name="Locales_en.properties" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/resources/Locales_en.properties">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="170">
-                  <caret line="10" column="27" lean-forward="true" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
+                <state relative-caret-position="187">
+                  <caret line="11" column="3" lean-forward="true" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
                   <folding />
                 </state>
               </provider>
@@ -62,14 +62,14 @@
           <file leaf-file-name="Locales_pl.properties" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/resources/Locales_pl.properties">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="170">
-                  <caret line="10" column="23" lean-forward="true" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
+                <state relative-caret-position="187">
+                  <caret line="11" column="4" lean-forward="false" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="FileTable.java" pinned="false" current-in-tab="true">
+          <file leaf-file-name="FileTable.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/java/tg/ui/FileTable.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="510">
@@ -153,8 +153,8 @@
           <file leaf-file-name="FileListLogic.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/java/tg/logic/FileListLogic.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="323">
-                  <caret line="35" column="5" lean-forward="false" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
+                <state relative-caret-position="510">
+                  <caret line="46" column="16" lean-forward="false" selection-start-line="46" selection-start-column="16" selection-end-line="46" selection-end-column="16" />
                   <folding>
                     <element signature="e#1582#1583#0" expanded="true" />
                     <element signature="e#1615#1616#0" expanded="true" />
@@ -186,10 +186,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>setProgress</find>
-      <find>textDetails</find>
-      <find>&quot;.&quot;</find>
-      <find>setFileSystemLocationLabel</find>
       <find>FlatB</find>
       <find>FlatBu</find>
       <find>FlatBut</find>
@@ -212,10 +208,14 @@
       <find>woln</find>
       <find>wolne</find>
       <find>kwolne</find>
-      <find>k wolne</find>
       <find>getSpacesLabel</find>
       <find>freeSpaceLabel</find>
       <find>getSpacesLab</find>
+      <find>k wolne</find>
+      <find>W</find>
+      <find>Wyb</find>
+      <find>Wybie</find>
+      <find>Wybierz</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -270,16 +270,16 @@
         <option value="$PROJECT_DIR$/src/main/java/tg/ui/Locales.properties" />
         <option value="$PROJECT_DIR$/src/main/java/tg/ui/FlatButton.java" />
         <option value="$PROJECT_DIR$/src/main/java/tg/ui/OperationDialog.java" />
-        <option value="$PROJECT_DIR$/src/main/java/tg/ui/TotalCommanderLayout.java" />
         <option value="$PROJECT_DIR$/src/main/java/tg/ui/FreeSpaceLabel.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/Locales.properties" />
-        <option value="$PROJECT_DIR$/src/main/resources/Locales_en.properties" />
-        <option value="$PROJECT_DIR$/src/main/resources/Locales_pl.properties" />
         <option value="$PROJECT_DIR$/src/main/java/tg/ui/FileList.java" />
         <option value="$PROJECT_DIR$/src/main/java/tg/logic/Context.java" />
         <option value="$PROJECT_DIR$/src/main/java/tg/logic/TableCellRenderer.java" />
         <option value="$PROJECT_DIR$/src/main/java/tg/ui/FileTable.java" />
         <option value="$PROJECT_DIR$/src/main/java/tg/logic/FileListLogic.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/Locales_en.properties" />
+        <option value="$PROJECT_DIR$/src/main/resources/Locales_pl.properties" />
+        <option value="$PROJECT_DIR$/src/main/resources/Locales.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/tg/ui/TotalCommanderLayout.java" />
       </list>
     </option>
   </component>
@@ -1185,12 +1185,12 @@
       <workItem from="1492762634978" duration="15000" />
       <workItem from="1492762788660" duration="39000" />
       <workItem from="1492883892094" duration="24606000" />
-      <workItem from="1492938636897" duration="5098000" />
+      <workItem from="1492938636897" duration="5518000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="45501000" />
+    <option name="totallyTimeSpent" value="45921000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
@@ -1537,16 +1537,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tg/ui/TotalCommanderLayout.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1660">
-          <caret line="42" column="65" lean-forward="false" selection-start-line="42" selection-start-column="65" selection-end-line="42" selection-end-column="65" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/tg/ui/FlatButton.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="714">
@@ -1554,39 +1544,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/Locales.properties">
-      <provider editor-type-id="ResourceBundle">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="10" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/Locales_en.properties">
-      <provider editor-type-id="ResourceBundle">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="27" lean-forward="true" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/Locales_pl.properties">
-      <provider editor-type-id="ResourceBundle">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="23" lean-forward="true" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1655,11 +1612,54 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/tg/logic/FileListLogic.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="35" column="5" lean-forward="false" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
+        <state relative-caret-position="510">
+          <caret line="46" column="16" lean-forward="false" selection-start-line="46" selection-start-column="16" selection-end-line="46" selection-end-column="16" />
           <folding>
             <element signature="e#1582#1583#0" expanded="true" />
             <element signature="e#1615#1616#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/Locales_en.properties">
+      <provider editor-type-id="ResourceBundle">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="3" lean-forward="true" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/Locales_pl.properties">
+      <provider editor-type-id="ResourceBundle">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="4" lean-forward="false" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/Locales.properties">
+      <provider editor-type-id="ResourceBundle">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="4" lean-forward="true" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tg/ui/TotalCommanderLayout.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="702">
+          <caret line="339" column="0" lean-forward="false" selection-start-line="339" selection-start-column="0" selection-end-line="339" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

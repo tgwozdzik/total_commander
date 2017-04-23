@@ -242,7 +242,7 @@ public class TotalCommanderLayout extends JFrame {
 
         if(leftFileList.getFileTable().getSelectedRows().length == 0
                 && rightFileList.getFileTable().getSelectedRows().length == 0) {
-            showMessageDialog(null, "Wybierz elementy do przeniesienia!");
+            JOptionPane.showMessageDialog(null, Context.getString("no_selected"), Context.getString("message"), JOptionPane.INFORMATION_MESSAGE);
             return;
         }
 
@@ -276,7 +276,7 @@ public class TotalCommanderLayout extends JFrame {
 
         if(leftFileList.getFileTable().getSelectedRows().length == 0
                 && rightFileList.getFileTable().getSelectedRows().length == 0) {
-            showMessageDialog(null, "Wybierz elementy do skopiowania!");
+            JOptionPane.showMessageDialog(null, Context.getString("no_selected"), Context.getString("message"), JOptionPane.INFORMATION_MESSAGE);
             return;
         }
 
@@ -336,7 +336,7 @@ public class TotalCommanderLayout extends JFrame {
 
             if(leftFileList.getFileTable().getSelectedRows().length == 0
                     && rightFileList.getFileTable().getSelectedRows().length == 0) {
-                showMessageDialog(null, "Wybierz elementy do usunięcia");
+                JOptionPane.showMessageDialog(null, Context.getString("no_selected"), Context.getString("message"), JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
 
