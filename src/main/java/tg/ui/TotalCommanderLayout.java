@@ -20,13 +20,15 @@ public class TotalCommanderLayout extends JFrame {
     private FileList leftFileList;
     private FileList rightFileList;
 
+    private MenuBar menuBar;
+
     private String locale = "PL";
 
     private void setUpLayout() {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(800, 600));
 
-        setTitle("Total Commander v0.3 - Tomasz Gwoździk PUT 2017");
+        setTitle("Total Commander - Tomasz Gwoździk PUT 2017");
 
         setBackground(Color.LIGHT_GRAY);
 
@@ -50,7 +52,11 @@ public class TotalCommanderLayout extends JFrame {
     }
 
     private void setUpMenuBar() {
-        setJMenuBar(new MenuBar().getMenuBar());
+        menuBar = new MenuBar();
+
+        Context.addContextChangeListener(menuBar);
+
+        setJMenuBar(menuBar.getMenuBar());
     }
 
     private void setUpHeader(JPanel headerDisplayPanel) {

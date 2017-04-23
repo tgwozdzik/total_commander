@@ -1,11 +1,14 @@
 package tg.ui;
 
+import tg.logic.Context;
+import tg.logic.ContextChangeListener;
+
 import javax.swing.*;
 
 /**
  * Created by tgwozdzik on 16.04.2017.
  */
-public class MenuBar {
+public class MenuBar implements ContextChangeListener {
     private JMenuBar menuBar;
     private JMenu filesMenu, helpMenu;
     private JMenuItem exitMenuItem, aboutAppMenuItem;
@@ -22,13 +25,13 @@ public class MenuBar {
     }
 
     private void setupMenus() {
-        filesMenu = new JMenu("Pliki");
-        helpMenu = new JMenu("Pomoc");
+        filesMenu = new JMenu(Context.getString("files"));
+        helpMenu = new JMenu(Context.getString("help"));
     }
 
     private void setupSubMenus() {
-        aboutAppMenuItem = new JMenuItem("O programie");
-        exitMenuItem = new JMenuItem("Zakończ");
+        aboutAppMenuItem = new JMenuItem(Context.getString("about"));
+        exitMenuItem = new JMenuItem(Context.getString("quit"));
     }
 
     private void glueAllTogether() {
@@ -50,11 +53,19 @@ public class MenuBar {
         });
 
         aboutAppMenuItem.addActionListener(e -> {
-            JOptionPane.showMessageDialog(null, "<html><center>Projekt zaliczeniowy na TPAL<br />Total Commander<br />Tomasz Gwoździk<br /></br />PUT 2017</center></html>");
+            JOptionPane.showMessageDialog(null, new JLabel("<html><center>"+ Context.getString("final_project") +"<br />Total Commander<br />Tomasz Gwoździk<br /></br />PUT 2017</center></html>",JLabel.CENTER), Context.getString("about"), JOptionPane.PLAIN_MESSAGE);
         });
     }
 
     public JMenuBar getMenuBar() {
         return menuBar;
+    }
+
+    @Override
+    public void contextChanged() {
+        filesMenu.setText(Context.getString("files"));
+        helpMenu.setText(Context.getString("help"));
+        aboutAppMenuItem.setText(Context.getString("about"));
+        exitMenuItem.setText(Context.getString("quit"));
     }
 }
