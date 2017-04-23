@@ -247,7 +247,7 @@ public class TotalCommanderLayout extends JFrame {
         }
 
         if(leftFileList.getCurrentPath().equals(rightFileList.getCurrentPath())) {
-            showMessageDialog(null, "Nie możesz przenosić pliku na ten sam plik!");
+            JOptionPane.showMessageDialog(null, Context.getString("copy_to_itself"), Context.getString("message"), JOptionPane.INFORMATION_MESSAGE);
             return;
         }
 
@@ -281,7 +281,7 @@ public class TotalCommanderLayout extends JFrame {
         }
 
         if(leftFileList.getCurrentPath().equals(rightFileList.getCurrentPath())) {
-            showMessageDialog(null, "Nie możesz kopiować pliku na ten sam plik!");
+            JOptionPane.showMessageDialog(null, Context.getString("copy_to_itself"), Context.getString("message"), JOptionPane.INFORMATION_MESSAGE);
             return;
         }
 
