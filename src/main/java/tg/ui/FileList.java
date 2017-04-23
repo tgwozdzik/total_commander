@@ -25,7 +25,7 @@ public class FileList extends JPanel {
 
     private JComboBox drives;
 
-    private JTable fileTable;
+    private FileTable fileTable;
 
     private Boolean isFocused;
 
@@ -39,7 +39,8 @@ public class FileList extends JPanel {
         fileListLogic = new FileListLogic();
         scrollPane = new JScrollPane();
 
-        fileTable = new JTable(fileListLogic.setDefaultTableModel(new Object[]{"Nazwa", "Rozmiar", "Data utworzenia"}));
+        fileTable = new FileTable(fileListLogic);
+        Context.addContextChangeListener(fileTable);
         fileTable.getTableHeader().setReorderingAllowed(false);
 
         fileTable.setShowGrid(false);
