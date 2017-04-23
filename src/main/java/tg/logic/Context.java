@@ -1,6 +1,7 @@
 package tg.logic;
 
 import javax.swing.*;
+import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -17,6 +18,7 @@ public final class Context {
     private static String baseName = "Locales";
 
     private static NumberFormat numberFormat;
+    private static DateFormat dateFormat;
 
     public static String getString(String key) {
         String message = "";
@@ -34,6 +36,11 @@ public final class Context {
         return numberFormat.format(number);
     }
 
+    public static String formatDate(Long milis) {
+        return dateFormat.format(milis);
+    }
+
+
     public static void setLocale(Locale newLocale) {
         if (locale != null && locale.equals(newLocale)) {
             return;
@@ -48,6 +55,7 @@ public final class Context {
         bundle = newBundle;
 
         numberFormat = NumberFormat.getInstance(newLocale);
+        dateFormat =  DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, newLocale);
 
         fireContextChangedEvent();
     }

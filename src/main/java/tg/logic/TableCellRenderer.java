@@ -57,11 +57,7 @@ public class TableCellRenderer extends DefaultTableCellRenderer {
         } else {
             Long creationDate = (Long) values[1];
 
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(creationDate);
-
-            label.setText(formatter.format(calendar.getTime()));
+            label.setText(Context.formatDate(creationDate));
         }
     }
 

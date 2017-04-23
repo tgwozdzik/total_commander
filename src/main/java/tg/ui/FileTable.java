@@ -30,6 +30,7 @@ public class FileTable extends JTable implements ContextChangeListener {
         tc.setHeaderValue( Context.getString("creation_date") );
 
         th.repaint();
+        repaint();
     }
 
     public FileTable(FileListLogic fileListLogic) {

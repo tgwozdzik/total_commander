@@ -35,10 +35,6 @@ public class FileListLogic {
         return tableModel;
     }
 
-    public void changeModelHeader(Object[] header) {
-        tableModel = new MyTableModel(fileList, header);
-    }
-
     private void calculateSpaces() {
         File file = new File(currentPath);
 
