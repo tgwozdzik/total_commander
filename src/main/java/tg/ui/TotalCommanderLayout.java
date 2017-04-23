@@ -1,20 +1,15 @@
 package tg.ui;
 
 import tg.logic.Context;
-import tg.logic.ContextChangeListener;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.ResourceBundle;
-
-import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  * Created by Tomasz Gwoździk on 09.04.2017.

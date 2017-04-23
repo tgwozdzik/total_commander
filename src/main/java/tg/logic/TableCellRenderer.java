@@ -46,7 +46,7 @@ public class TableCellRenderer extends DefaultTableCellRenderer {
             if (size == -1) {
                 label.setText("");
             } else {
-                label.setText(size.toString());
+                label.setText(Context.formatNumber(size));
             }
         }
     }

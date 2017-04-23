@@ -1,9 +1,6 @@
 package tg.ui;
 
-import tg.logic.Context;
-import tg.logic.Copy;
-import tg.logic.Delete;
-import tg.logic.Move;
+import tg.logic.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +12,7 @@ import java.util.ArrayList;
 /**
  * Created by tgwozdzik on 16.04.2017.
  */
-public class OperationDialog extends JFrame {
+public class OperationDialog extends JFrame implements ContextChangeListener {
     private Copy copy;
     private Move move;
     private Delete delete;
@@ -29,10 +26,15 @@ public class OperationDialog extends JFrame {
     private JLabel txtFile;
 
     private JLabel lblFile;
+    private JLabel lblSource;
+    private JLabel lblTarget;
+    private JLabel lblProgressAll;
 
     private void setUpLayout() {
         setPreferredSize(new Dimension(500, 170));
         setResizable(false);
+
+        OperationDialog dialog = this;
 
         addWindowListener(new WindowAdapter()
         {
@@ -41,12 +43,13 @@ public class OperationDialog extends JFrame {
             {
                 cancelAction();
                 Context.removeComponentFromList(actionButton);
+                Context.removeComponentFromList(dialog);
             }
         });
 
-        JLabel lblSource = new JLabel("Zródło: ");
-        JLabel lblTarget = new JLabel("Cel: ");
-        lblFile = new JLabel("Trwa kopiowanie: ");
+        lblSource = new JLabel(Context.getString("source")  + " ");
+        lblTarget = new JLabel(Context.getString("destination")  + " ");
+        lblFile = new JLabel("");
 
         StringBuilder sourceText = new StringBuilder();
         StringBuilder sourceTextFlat = new StringBuilder();
@@ -63,7 +66,7 @@ public class OperationDialog extends JFrame {
         txtTarget.setToolTipText(target);
         txtFile  = new JLabel("...");
 
-        JLabel lblProgressAll = new JLabel("Całkowity postęp: ");
+        lblProgressAll = new JLabel(Context.getString("total_progress")  + " ");
         progressAll = new JProgressBar(0, 100);
         progressAll.setStringPainted(true);
 
@@ -127,28 +130,41 @@ public class OperationDialog extends JFrame {
                 runAction();
             }
         });
+
+        Context.addContextChangeListener(this);
+        Context.addContextChangeListener(actionButton);
     }
 
     private void setLabels() {
         switch(isCopying) {
             case 0:
-                setTitle("Przenoszenie");
-                actionButton.changeKey("move");
-                lblFile.setText("Trwa przenoszenie: ");
+                setTitle(Context.getString("moving_title"));
+                if((move != null) && move.getIsRunning()){
+                    actionButton.changeKey("cancel");
+                } else {
+                    actionButton.changeKey("move");
+                }
+                lblFile.setText(Context.getString("moving")  + " ");
                 break;
             case 1:
-                setTitle("Kopiowanie");
-                actionButton.changeKey("copy");
-                lblFile.setText("Trwa kopiowanie: ");
+                setTitle(Context.getString("copying_title"));
+                if((copy != null) && copy.getIsRunning()){
+                    actionButton.changeKey("cancel");
+                } else {
+                    actionButton.changeKey("copy");
+                }
+                lblFile.setText(Context.getString("copying")  + " ");
                 break;
             case 2:
-                setTitle("Usuwanie");
-                actionButton.changeKey("delete");
-                lblFile.setText("Trwa usuwanie: ");
+                setTitle(Context.getString("deleting_title"));
+                if((delete != null) && delete.getIsRunning()){
+                    actionButton.changeKey("cancel");
+                } else {
+                    actionButton.changeKey("delete");
+                }
+                lblFile.setText(Context.getString("deleting")  + " ");
                 break;
         }
-
-        Context.addContextChangeListener(actionButton);
     }
 
     private void cancelAction() {
@@ -184,7 +200,7 @@ public class OperationDialog extends JFrame {
     private Object[] canRunOperation() {
         Boolean canMakeOperation = true;
         StringBuilder message = new StringBuilder();
-        message.append("<html>The source file/directory does not exist!<br /><br />");
+        message.append("<html>" + Context.getString("file_not_exists") + "<br /><br />");
         for(String sourceObj : source) {
             File file = new File(sourceObj);
             if(!file.exists()) {
@@ -204,12 +220,14 @@ public class OperationDialog extends JFrame {
             File file = new File(sourceObj);
             File fileTarget = new File (target + File.separator + file.getName());
 
-            Object[] options = {"Nadpisz wszystkie",
-                    "Nadpisz bieżący",
-                    "Pomiń"};
+            Object[] options = {
+                Context.getString("overwrite_all"),
+                Context.getString("overwrite"),
+                Context.getString("skip")
+            };
 
             if(fileTarget.exists()) {
-                int option = JOptionPane.showOptionDialog(this, "<html>The target file/directory already exists, do you want to overwrite it?<br />"+fileTarget.getAbsolutePath() + "</html>", "Overwrite the target", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
+                int option = JOptionPane.showOptionDialog(this, "<html>" + Context.getString("overwrite_question") + "<br />"+fileTarget.getAbsolutePath() + "</html>", Context.getString("overwrite_title"), JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
 
                 if(option == JOptionPane.YES_OPTION) {
                     newSourceList = source;
@@ -234,11 +252,13 @@ public class OperationDialog extends JFrame {
             File file = new File(sourceObj);
 
             if(file.isDirectory() && file.listFiles().length > 0) {
-                Object[] options = {"Usuń wszystkie",
-                        "Usuń bieżący",
-                        "Pomiń"};
+                Object[] options = {
+                    Context.getString("delete_all"),
+                    Context.getString("delete_this"),
+                    Context.getString("skip")
+                };
 
-                int option = JOptionPane.showOptionDialog(this, "<html>The directory is not empty, do you want to delete it anyway?<br />"+file.getAbsolutePath() + "</html>", "Delete directory", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
+                int option = JOptionPane.showOptionDialog(this, "<html>" + Context.getString("delete_question") + "<br />" + file.getAbsolutePath() + "</html>", Context.getString("delete_ttile"), JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
 
                 if(option == JOptionPane.YES_OPTION) {
                     newSourceList = source;
@@ -276,7 +296,7 @@ public class OperationDialog extends JFrame {
                         }
                     });
 
-                    actionButton.setText("Anuluj");
+                    actionButton.changeKey("cancel");
                 }
             }
         });
@@ -301,7 +321,7 @@ public class OperationDialog extends JFrame {
                         }
                     });
 
-                    actionButton.setText("Anuluj");
+                    actionButton.changeKey("cancel");
                 }
             }
         });
@@ -321,7 +341,7 @@ public class OperationDialog extends JFrame {
                     }
                 });
 
-                actionButton.setText("Anuluj");
+                actionButton.changeKey("cancel");
             }
         });
     }
@@ -333,5 +353,14 @@ public class OperationDialog extends JFrame {
 
         setUpLayout();
         setLabels();
+    }
+
+    @Override
+    public void contextChanged() {
+        setLabels();
+
+        lblSource.setText(Context.getString("source") + " ");
+        lblTarget.setText(Context.getString("destination") + " ");
+        lblProgressAll.setText(Context.getString("total_progress") + " ");
     }
 }
