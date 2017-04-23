@@ -1,5 +1,6 @@
 package tg.ui;
 
+import tg.logic.Context;
 import tg.logic.Copy;
 import tg.logic.Delete;
 import tg.logic.Move;
@@ -24,7 +25,7 @@ public class OperationDialog extends JFrame {
     private ArrayList<String> source;
 
     private JProgressBar progressAll;
-    private JButton btnCopy;
+    private FlatButton actionButton;
     private JLabel txtFile;
 
     private JLabel lblFile;
@@ -39,6 +40,7 @@ public class OperationDialog extends JFrame {
             public void windowClosing(WindowEvent e)
             {
                 cancelAction();
+                Context.removeComponentFromList(actionButton);
             }
         });
 
@@ -65,8 +67,8 @@ public class OperationDialog extends JFrame {
         progressAll = new JProgressBar(0, 100);
         progressAll.setStringPainted(true);
 
-        btnCopy = new JButton();
-        btnCopy.setFocusPainted(false);
+        actionButton = new FlatButton("");
+        actionButton.setFocusPainted(false);
 
         JPanel contentPane = (JPanel) getContentPane();
         contentPane.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -105,7 +107,7 @@ public class OperationDialog extends JFrame {
         panProgress.add(panProgressLabels, BorderLayout.LINE_START);
         panProgress.add(panProgressBars, BorderLayout.CENTER);
         panDetails.add(panFileName, BorderLayout.CENTER);
-        panControls.add(btnCopy, BorderLayout.EAST);
+        panControls.add(actionButton, BorderLayout.EAST);
 
         JPanel panUpper = new JPanel(new BorderLayout());
         panUpper.add(panInput, BorderLayout.NORTH);
@@ -118,7 +120,7 @@ public class OperationDialog extends JFrame {
         pack();
         setLocationRelativeTo(null);
 
-        btnCopy.addActionListener(e -> {
+        actionButton.addActionListener(e -> {
             if(move != null || copy != null || delete != null) {
                 cancelAction();
             } else {
@@ -131,20 +133,22 @@ public class OperationDialog extends JFrame {
         switch(isCopying) {
             case 0:
                 setTitle("Przenoszenie");
-                btnCopy.setText("Przenieś");
+                actionButton.changeKey("move");
                 lblFile.setText("Trwa przenoszenie: ");
                 break;
             case 1:
                 setTitle("Kopiowanie");
-                btnCopy.setText("Kopiuj");
+                actionButton.changeKey("copy");
                 lblFile.setText("Trwa kopiowanie: ");
                 break;
             case 2:
                 setTitle("Usuwanie");
-                btnCopy.setText("Usuń");
+                actionButton.changeKey("delete");
                 lblFile.setText("Trwa usuwanie: ");
                 break;
         }
+
+        Context.addContextChangeListener(actionButton);
     }
 
     private void cancelAction() {
@@ -272,7 +276,7 @@ public class OperationDialog extends JFrame {
                         }
                     });
 
-                    btnCopy.setText("Anuluj");
+                    actionButton.setText("Anuluj");
                 }
             }
         });
@@ -297,7 +301,7 @@ public class OperationDialog extends JFrame {
                         }
                     });
 
-                    btnCopy.setText("Anuluj");
+                    actionButton.setText("Anuluj");
                 }
             }
         });
@@ -317,7 +321,7 @@ public class OperationDialog extends JFrame {
                     }
                 });
 
-                btnCopy.setText("Anuluj");
+                actionButton.setText("Anuluj");
             }
         });
     }

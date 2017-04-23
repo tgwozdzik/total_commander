@@ -1,14 +1,18 @@
 package tg.ui;
 
+import tg.logic.Context;
+import tg.logic.ContextChangeListener;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -21,6 +25,8 @@ public class TotalCommanderLayout extends JFrame {
     private FileList leftFileList;
     private FileList rightFileList;
 
+    private String locale = "PL";
+
     private void setUpLayout() {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(800, 600));
@@ -28,21 +34,77 @@ public class TotalCommanderLayout extends JFrame {
         setTitle("Total Commander v0.1 - Tomasz Gwoździk PUT 2017");
 
         setBackground(Color.LIGHT_GRAY);
+
+        Context.setLocale(new Locale(locale));
     }
 
     private void setUpLists() {
         JPanel fileDisplayPanel = new JPanel(new GridBagLayout());
         fileDisplayPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
+        JPanel headerDisplayPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
         setUpLeftFileList(fileDisplayPanel);
         setUpMiddleActionButtons(fileDisplayPanel);
         setUpRightFileList(fileDisplayPanel);
 
+        setUpHeader(headerDisplayPanel);
+
+        add(headerDisplayPanel, BorderLayout.NORTH);
         add(fileDisplayPanel, BorderLayout.CENTER);
     }
 
     private void setUpMenuBar() {
         setJMenuBar(new MenuBar().getMenuBar());
+    }
+
+    private void setUpHeader(JPanel headerDisplayPanel) {
+        FlatButton refresh = new FlatButton("");
+
+        Image copyIcon = null;
+        try {
+            copyIcon = ImageIO.read(getClass().getResource("refresh.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if(copyIcon != null) {
+            refresh.setIcon(new ImageIcon(copyIcon));
+        }
+
+        refresh.setBorder(null);
+        refresh.setBorderPainted(false);
+        refresh.setMargin(new Insets(0,0,0,0));
+
+        refresh.addActionListener(e -> {
+            leftFileList.refresh();
+            rightFileList.refresh();
+        });
+
+        headerDisplayPanel.add(refresh);
+
+        JSeparator separator = new JSeparator(SwingConstants.VERTICAL);
+        Dimension d = separator.getPreferredSize();
+        d.height = refresh.getPreferredSize().height;
+        separator.setPreferredSize(d);
+        headerDisplayPanel.add(separator);
+
+        FlatButton changeLanguage = new FlatButton(locale);
+
+        Context.addContextChangeListener(changeLanguage);
+
+        changeLanguage.addActionListener(e -> {
+            if(locale.equals("EN")) {
+                locale = "PL";
+            } else {
+                locale = "EN";
+            }
+
+            changeLanguage.changeKey(locale);
+            Context.setLocale(new Locale(locale));
+        });
+
+        headerDisplayPanel.add(changeLanguage);
     }
 
     private void setUpLeftFileList(JPanel fileDisplayPanel) {
@@ -64,6 +126,9 @@ public class TotalCommanderLayout extends JFrame {
         GridBagConstraints gbc = new GridBagConstraints();
 
         FlatButton copy = new FlatButton("");
+        copy.setBorder(new EmptyBorder(5, 5, 5,5));
+        copy.setBorderPainted(false);
+        copy.setMargin(new Insets(0,0,0,0));
         Image copyIcon = null;
         try {
             copyIcon = ImageIO.read(getClass().getResource("copy.png"));
@@ -76,6 +141,9 @@ public class TotalCommanderLayout extends JFrame {
         }
 
         FlatButton move = new FlatButton("");
+        move.setBorder(new EmptyBorder(5, 5, 5,5));
+        move.setBorderPainted(false);
+        move.setMargin(new Insets(0,0,0,0));
         Image moveIcon = null;
         try {
             moveIcon = ImageIO.read(getClass().getResource("move.png"));
@@ -239,10 +307,15 @@ public class TotalCommanderLayout extends JFrame {
     private void setUpFooterButtons() {
         JPanel commandButtonPanel = new JPanel(new GridLayout());
 
-        JButton copyButton   = new FlatButton("Kopiuj", FlatButton.RIGHT);
-        JButton moveButton   = new FlatButton("Przenieś", FlatButton.RIGHT);
-        JButton removeButton = new FlatButton("Usuń", FlatButton.RIGHT);
-        JButton exitButton   = new FlatButton("Zakończ");
+        FlatButton copyButton   = new FlatButton("copy", FlatButton.RIGHT);
+        FlatButton moveButton   = new FlatButton("move", FlatButton.RIGHT);
+        FlatButton removeButton = new FlatButton("delete", FlatButton.RIGHT);
+        FlatButton exitButton   = new FlatButton("quit");
+
+        Context.addContextChangeListener(copyButton);
+        Context.addContextChangeListener(moveButton);
+        Context.addContextChangeListener(removeButton);
+        Context.addContextChangeListener(exitButton);
 
         commandButtonPanel.add(copyButton);
         commandButtonPanel.add(moveButton);

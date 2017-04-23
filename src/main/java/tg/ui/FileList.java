@@ -7,13 +7,10 @@ import tg.logic.comparators.FileNameComparator;
 import tg.logic.comparators.FileSizeComparator;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 public class FileList extends JPanel {
@@ -42,6 +39,7 @@ public class FileList extends JPanel {
         scrollPane = new JScrollPane();
 
         fileTable = new JTable(fileListLogic.setDefaultTableModel(new Object[]{"Nazwa", "Rozmiar", "Data utworzenia"}));
+        fileTable.getTableHeader().setReorderingAllowed(false);
 
         fileTable.setShowGrid(false);
         scrollPane.setViewportView(fileTable);
