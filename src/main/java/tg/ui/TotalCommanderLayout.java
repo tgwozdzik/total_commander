@@ -31,7 +31,7 @@ public class TotalCommanderLayout extends JFrame {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(800, 600));
 
-        setTitle("Total Commander v0.1 - Tomasz Gwoździk PUT 2017");
+        setTitle("Total Commander v0.3 - Tomasz Gwoździk PUT 2017");
 
         setBackground(Color.LIGHT_GRAY);
 

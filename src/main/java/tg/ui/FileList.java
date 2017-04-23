@@ -1,5 +1,6 @@
 package tg.ui;
 
+import tg.logic.Context;
 import tg.logic.TableCellRenderer;
 import tg.logic.FileListLogic;
 import tg.logic.comparators.FileCreationDateComparator;
@@ -20,7 +21,7 @@ public class FileList extends JPanel {
 
     private JPanel fileHeaderPanel = new JPanel(new BorderLayout());
     private Label fileSystemLocationLabel = new Label("");
-    private Label freeSpaceLabel = new Label("");
+    private FreeSpaceLabel freeSpaceLabel = new FreeSpaceLabel();
 
     private JComboBox drives;
 
@@ -46,6 +47,8 @@ public class FileList extends JPanel {
 
         scrollPane.getViewport().setBackground(Color.WHITE);
         add(scrollPane, BorderLayout.CENTER);
+
+        Context.addContextChangeListener(freeSpaceLabel);
     }
 
     private void setUpColumnsSorter() {
@@ -130,7 +133,7 @@ public class FileList extends JPanel {
     }
 
     private void setFreeSpaceLabel() {
-        freeSpaceLabel.setText(fileListLogic.getSpacesLabel());
+        freeSpaceLabel.changeValues(fileListLogic.getFreeSpace(), fileListLogic.getTotalSpace());
     }
 
     private void updateDrives() {

@@ -62,8 +62,12 @@ public class FileListLogic {
         return drivesList;
     }
 
-    public String getSpacesLabel() {
-        return freeSpace.toString() + " k z " + totalSpace.toString() + " k wolne";
+    public Long getFreeSpace() {
+        return freeSpace;
+    }
+
+    public Long getTotalSpace() {
+        return totalSpace;
     }
 
     public String getCurrentPath() {
