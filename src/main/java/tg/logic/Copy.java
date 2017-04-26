@@ -37,13 +37,13 @@ public class Copy extends SwingWorker<Void, List<Object>> {
     public Void doInBackground() throws Exception {
         isRunning = true;
 
-        publish(createPublishArray(null,"Retrieving some info ..."));
+        publish(createPublishArray(null, Context.getString("retrieving_info")));
 
         for(File sourceObj : source) {
             retrieveTotalBytes(sourceObj);
         }
 
-        publish(createPublishArray(null,"Start task"));
+        publish(createPublishArray(null,"Start"));
 
         for(File sourceObj : source) {
             copyFiles(sourceObj, new File(target.getCanonicalPath() + File.separator + sourceObj.getName()));
@@ -72,7 +72,7 @@ public class Copy extends SwingWorker<Void, List<Object>> {
 
     @Override
     public void done() {
-        publish(createPublishArray(100,"\nDone!\n"));
+        publish(createPublishArray(100,"\n"+ Context.getString("done") +"!\n"));
     }
 
     private void retrieveTotalBytes(File sourceFile) {

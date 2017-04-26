@@ -146,11 +146,9 @@ public class FileList extends JPanel {
     private void updatePath(Integer rowIndex) {
         Object[] selectedValue = (Object[]) fileTable.getValueAt(rowIndex, 0);
 
-
-        setFileSystemLocationLabel();
         fileListLogic.updatePath(selectedValue);
-
         displayFilesAndDirs();
+        setFileSystemLocationLabel();
     }
 
     public String getCurrentPath() {

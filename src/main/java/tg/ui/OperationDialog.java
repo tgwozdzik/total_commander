@@ -258,7 +258,7 @@ public class OperationDialog extends JFrame implements ContextChangeListener {
                     Context.getString("skip")
                 };
 
-                int option = JOptionPane.showOptionDialog(this, "<html>" + Context.getString("delete_question") + "<br />" + file.getAbsolutePath() + "</html>", Context.getString("delete_ttile"), JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
+                int option = JOptionPane.showOptionDialog(this, "<html>" + Context.getString("delete_question") + "<br />" + file.getAbsolutePath() + "</html>", Context.getString("delete_tile"), JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
 
                 if(option == JOptionPane.YES_OPTION) {
                     newSourceList = source;

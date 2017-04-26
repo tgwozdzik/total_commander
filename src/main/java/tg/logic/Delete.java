@@ -34,13 +34,13 @@ public class Delete extends SwingWorker<Void, List<Object>> {
     public Void doInBackground() throws Exception {
         isRunning = true;
 
-        publish(createPublishArray(null,"Retrieving some info ..."));
+        publish(createPublishArray(null, Context.getString("retrieving_info")));
 
         for(File sourceObj : source) {
             retrieveTotalBytes(sourceObj);
         }
 
-        publish(createPublishArray(null,"Start task"));
+        publish(createPublishArray(null,"Start"));
 
         for(File sourceObj : source) {
             removeFiles(sourceObj);
@@ -69,7 +69,7 @@ public class Delete extends SwingWorker<Void, List<Object>> {
 
     @Override
     public void done() {
-        publish(createPublishArray(100,"\nDone!\n"));
+        publish(createPublishArray(100,"\n"+ Context.getString("done") +"!\n"));
     }
 
     private void retrieveTotalBytes(File sourceFile) {
@@ -109,7 +109,7 @@ public class Delete extends SwingWorker<Void, List<Object>> {
             }
 
             if(!sourceFile.delete()) {
-                publish(createPublishArray(null, "Nie usunięto folderu!"));
+                publish(createPublishArray(null, "Error!"));
             }
         }
         else
@@ -119,7 +119,7 @@ public class Delete extends SwingWorker<Void, List<Object>> {
             Long tempFileSize = sourceFile.length();
 
             if(!sourceFile.delete()) {
-                publish(createPublishArray(null, "Nie usunięto pliku!"));
+                publish(createPublishArray(null, "Error!"));
             } else {
                 removedBytes += tempFileSize;
                 publish(createPublishArray((int) (removedBytes * 100 / totalBytes), null));

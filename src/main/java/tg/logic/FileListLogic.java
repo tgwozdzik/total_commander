@@ -36,7 +36,7 @@ public class FileListLogic {
     }
 
     private void calculateSpaces() {
-        File file = new File(currentPath);
+        File file = new File(currentDrive);
 
         freeSpace = file.getFreeSpace() / 1000;
         totalSpace = file.getTotalSpace() / 1000;
