@@ -52,7 +52,7 @@ Uwagi dotyczące projektu i implementacji programu:
 - [X] po wykonaniu operacji na plikach należy zaktualizować listy wyświetlanych
   plików i folderów
 
-- [ ] aplikacja powinna umożliwiać dynamiczną zmianę wersji językowej interfejsu
+- [X] aplikacja powinna umożliwiać dynamiczną zmianę wersji językowej interfejsu
   (zmiana wyświetlanych tekstów każdego elementu interfejsu użytkownika,
   dostosowanie sposobu wyświetlania daty i czasu utworzenia plików) 
 
