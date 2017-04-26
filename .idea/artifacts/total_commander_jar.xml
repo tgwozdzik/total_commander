@@ -2,6 +2,9 @@
   <artifact type="jar" name="total_commander:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/total_commander_jar</output-path>
     <root id="archive" name="total_commander.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" />
+      </element>
       <element id="module-output" name="total_commander" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/commons-io/commons-io/2.5/commons-io-2.5.jar" path-in-jar="/" />
     </root>
